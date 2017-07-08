@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * @author carina.dalsasso
+ * @author Hamã Cândido
  */
 public class FXMLDocumentController implements Initializable {
 
