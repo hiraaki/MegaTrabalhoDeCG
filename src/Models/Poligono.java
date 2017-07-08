@@ -5,7 +5,6 @@
  */
 package Models;
 import java.util.ArrayList;
-import java.math.*;
 /**
  *
  * @author mhi
@@ -20,8 +19,7 @@ public class Poligono {
         this.Central= ini;
         //x' = x*cos(0) - y* sen(0);
         //y' = x*sen(0) + y*cos(0);
-        Vertice V=new Vertice();
-        Aresta Na =new Aresta();
+        Vertice V=new Vertice();        
         double cos;
         cos = Math.cos(Math.toRadians((360/lados)/2));
         double sen;
@@ -36,12 +34,22 @@ public class Poligono {
             N.X=(V.X*cos)-(V.Y*sen);
             N.Y=(V.X*sen)+(V.Y*cos);          
             this.Vertices.add(N);
-            V=N;            
-        }
+            V=N;     
+        }        
+        setArestas();
+    }
+    public Poligono(ArrayList<Aresta> arestas){
+        this.Arestas=arestas;
+        this.setArestas();
+    }
+    public void setArestas(){
+        Aresta Na =new Aresta();
         for (int i = 0; i < Vertices.size(); i++) {
             Na.Inicio=Vertices.get(i);
             Na.Fim=Vertices.get(i+1);
+            this.Arestas.add(Na);
         }
-        
     }
+    
+    
 }
