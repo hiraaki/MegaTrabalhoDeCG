@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package Controler;
-import Models.*;
+
 /**
  *
  * @author mhi
  */
-public class Gera_Poligono {
+public class Poligono_ctl {
     
 }

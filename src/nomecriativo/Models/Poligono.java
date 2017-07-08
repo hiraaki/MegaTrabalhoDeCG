@@ -7,7 +7,8 @@ package Models;
 import java.util.ArrayList;
 /**
  *
- * @author mhi
+ * @author Mauricio Hiraaki Ishida
+ * @author Hamã Candido
  */
 public class Poligono {
     Vertice Central;
