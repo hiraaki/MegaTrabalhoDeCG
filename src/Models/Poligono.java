@@ -47,8 +47,13 @@ public class Poligono {
         Aresta Na =new Aresta();
         for (int i = 0; i < Vertices.size(); i++) {
             Na.Inicio=Vertices.get(i);
-            Na.Fim=Vertices.get(i+1);
-            this.Arestas.add(Na);
+            if(i==Vertices.size()){
+                Na.Fim=Vertices.get(0);
+                this.Arestas.add(Na);
+            }else {
+                Na.Fim = Vertices.get(i + 1);
+                this.Arestas.add(Na);
+            }
         }
     }
     
