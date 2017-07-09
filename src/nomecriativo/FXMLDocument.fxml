@@ -12,7 +12,7 @@
 
 <BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
    <center>
-      <Canvas fx:id="chico" height="471.0" layoutX="2.0" width="822.0" />
+      <Canvas fx:id="chico" height="471.0" layoutX="2.0" width="797.0" />
    </center>
    <top>
       <MenuBar style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER">
@@ -38,14 +38,14 @@
       </MenuBar>
    </top>
    <left>
-      <Pane prefHeight="396.0" prefWidth="169.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="471.0" prefWidth="184.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="90.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="90.0" layoutY="47.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="14.0" layoutY="85.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="90.0" layoutY="85.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Quadrado" />
+            <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Irregular" />
+            <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Button" />
+            <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="Button" />
          </children>
          <effect>
             <Bloom threshold="1.0" />

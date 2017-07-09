@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 package Controler;
+import Models.*;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -24,12 +25,15 @@ import javafx.scene.paint.Color;
  */
 public class FXMLDocumentController implements Initializable {
 
+    private java.util.ArrayList<Poligono> poligonos;
     @FXML
     private Canvas chico;
     Poliline pol;
-
+    @FXML
+    private Button Quadrado;
     double x1, y1, x2, y2;
     int cliquesNoChico;
+
 
     GraphicsContext gc;
 
@@ -37,24 +41,28 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        pol = new Poliline();
-        chico.setOnMouseClicked(this::cliqueinochico);
-        
-        
-        chico.getParent().setOnKeyPressed((KeyEvent e) -> {
-            System.out.println("uheuheuhe");
-        });        
+        //pol = new Poliline();
+        ///chico.setOnMouseClicked(this::cliqueinochico);
 
-        cliquesNoChico = 0;
+
+       /* chico.getParent().setOnKeyPressed((KeyEvent e) -> {
+            System.out.println("uheuheuhe");
+        });*/
+
+        //cliquesNoChico = 0;
 
         gc = chico.getGraphicsContext2D();
 
         gc.setStroke(Color.BLUE);
-        /* 
+        /*
         gc.strokeLine(50, 0, 50, 100);
         gc.strokeLine(50, 100, 150, 100);
         gc.strokeLine(150, 100, 150, 0);
         gc.strokeLine(50, 0, 150, 0);*/
+    }
+
+    void setQuadrado(){
+        chico.setOnMouseClicked(this::cliqueinochico);
     }
 
     public void carregou(){
@@ -68,7 +76,7 @@ public class FXMLDocumentController implements Initializable {
     
     private void cliqueinochico(MouseEvent e) {
         cliquesNoChico++;
-        
+        Vertice v = new Vertice();
         Ponto p = new Ponto();
         
         p.x = e.getX();
