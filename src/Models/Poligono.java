@@ -4,42 +4,64 @@
  * and open the template in the editor.
  */
 package Models;
+import com.sun.javafx.geom.Vec2d;
+
 import java.util.ArrayList;
+
+import static java.lang.Math.abs;
+
 /**
  *
  * @author Mauricio Hiraaki Ishida
  * @author Hamã Candido
  */
 public class Poligono {
-    Vertice Central;
-    ArrayList<Aresta> Arestas;
-    ArrayList<Vertice> Vertices;
+    public Vertice Central;
+    public ArrayList<Aresta> Arestas;
+    public ArrayList<Vertice> Vertices;
     //ArrayList<Face> Faces;
-    
+    public Poligono(){
+        this.Central = new Vertice();
+        this.Vertices = new ArrayList();
+        this.Vertices = new ArrayList();
+
+    }
+
     public Poligono(Vertice ini, Vertice fim, int lados){
+        this.Central= new Vertice();
         this.Central= ini;
+        this.Arestas = new ArrayList();
+        this.Vertices = new ArrayList();
         //x' = x*cos(0) - y* sen(0);
         //y' = x*sen(0) + y*cos(0);
-        Vertice V=new Vertice();        
+        Vertice V=new Vertice();
+        V=ini;
         double cos;
-        cos = Math.cos(Math.toRadians((360/lados)/2));
         double sen;
-        sen = Math.sin(Math.toRadians((360/lados)/2));
-        V.X=(fim.X*cos)-(fim.Y*sen);
-        V.Y=(fim.X*sen)+(fim.Y*cos);
-        cos = Math.cos(Math.toRadians(360/lados));
-        sen = Math.sin(Math.toRadians(360/lados));
-        this.Vertices.add(V);
-        Vertice N=new Vertice();           
+        double xtemp;
+        double ytemp;
+        double grau = (360/lados);
+        double R=abs(abs(fim.X)-abs(ini.X));
+        //this.Vertices.add(fim);
+        Vertice V2=new Vertice();
+        System.out.println(this.Central.X+" "+this.Central.Y);
         for(int i=0;i<lados;i++){
-            N.X=(V.X*cos)-(V.Y*sen);
-            N.Y=(V.X*sen)+(V.Y*cos);          
-            this.Vertices.add(N);
-            V=N;     
-        }        
-        setArestas();
+            xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + grau) + V.X);
+            ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + grau) + V.Y);
+            V2.X=xtemp;
+            V2.Y=ytemp;
+            Vertices.add(V2);
+            System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
+            System.out.println(R);
+        }
+        for (int i =0 ; i<this.Vertices.size();i++){
+            System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
+        }
+        //setArests();
+
     }
     public Poligono(ArrayList<Aresta> arestas){
+        Arestas = new ArrayList();
         this.Arestas=arestas;
         this.setArestas();
     }
@@ -47,13 +69,15 @@ public class Poligono {
         Aresta Na =new Aresta();
         for (int i = 0; i < Vertices.size(); i++) {
             Na.Inicio=Vertices.get(i);
-            if(i==Vertices.size()){
+            if(i==Vertices.size()-1){
                 Na.Fim=Vertices.get(0);
                 this.Arestas.add(Na);
             }else {
                 Na.Fim = Vertices.get(i + 1);
                 this.Arestas.add(Na);
             }
+            System.out.println(Na.Inicio.X+" "+Na.Inicio.Y);
+            System.out.println(Na.Fim.X+" "+Na.Fim.Y);
         }
     }
     

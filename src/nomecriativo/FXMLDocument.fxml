@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
+<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
    <center>
       <Canvas fx:id="chico" height="471.0" layoutX="2.0" width="797.0" />
    </center>
@@ -40,7 +40,7 @@
    <left>
       <Pane prefHeight="471.0" prefWidth="184.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Quadrado" />
+            <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Quadrado" onAction="#criaQuadrado" />
             <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
             <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Irregular" />
             <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="Button" />

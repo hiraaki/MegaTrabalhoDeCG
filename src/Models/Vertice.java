@@ -10,6 +10,6 @@ package Models;
  * @author mhi
  */
 public class Vertice {
-    double X;
-    double Y;   
+   public double X;
+   public double Y;
 }

@@ -11,9 +11,9 @@ package Models;
  * @author Hamã Candido
  */
 public class Aresta {
-    Vertice Inicio;
-    Vertice Fim;
-    Face Esquerda;
-    Face Direita;   
+    public Vertice Inicio;
+    public Vertice Fim;
+   // public Face Esquerda;
+   // public Face Direita;
     
 }

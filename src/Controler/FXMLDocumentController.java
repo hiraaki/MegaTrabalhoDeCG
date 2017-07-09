@@ -25,14 +25,14 @@ import javafx.scene.paint.Color;
  */
 public class FXMLDocumentController implements Initializable {
 
-    private java.util.ArrayList<Poligono> poligonos;
+    private ArrayList<Poligono> poligonos;
     @FXML
     private Canvas chico;
-    Poliline pol;
+    public Aresta raio;
     @FXML
     private Button Quadrado;
     double x1, y1, x2, y2;
-    int cliquesNoChico;
+    public int cliquesNoChico;
 
 
     GraphicsContext gc;
@@ -42,14 +42,14 @@ public class FXMLDocumentController implements Initializable {
         // TODO
 
         //pol = new Poliline();
-        ///chico.setOnMouseClicked(this::cliqueinochico);
+        //chico.setOnMouseClicked(this::cliqueinochico);
 
 
        /* chico.getParent().setOnKeyPressed((KeyEvent e) -> {
             System.out.println("uheuheuhe");
         });*/
 
-        //cliquesNoChico = 0;
+        cliquesNoChico = 0;
 
         gc = chico.getGraphicsContext2D();
 
@@ -61,66 +61,53 @@ public class FXMLDocumentController implements Initializable {
         gc.strokeLine(50, 0, 150, 0);*/
     }
 
-    void setQuadrado(){
-        chico.setOnMouseClicked(this::cliqueinochico);
+    public void criaQuadrado(){
+        chico.setOnMouseClicked(this::criaRegular);
+
+    }
+    public void criaRegular(MouseEvent e){
+        System.out.println("dsadasdsadasdasasdas");
+        Vertice v = new Vertice();
+        Vertice v2 = new Vertice();
+        v.X = e.getX();
+        System.out.println("fdfxsggdsgv");
+        v.Y = e.getY();
+        v2.X=v.X+100;
+        v2.Y=v.Y;
+        this.poligonos=new ArrayList();
+        Poligono Novo = new Poligono(v,v2,4);
+
+
+        for(int i=0;i<Novo.Vertices.size();i++){
+            System.out.println(Novo.Vertices.get(i).X+" "+Novo.Vertices.get(i).Y);
+        }
+        gc.strokeLine(50, 0, 50, 100);
     }
 
     public void carregou(){
         chico.getScene().setOnKeyPressed((KeyEvent e) -> {
             gc.clearRect(0, 0, chico.getWidth(), chico.getHeight());
             cliquesNoChico = 0;
-            pol.pontos.clear();
-       // pol.draw(gc);
+            //pol.pontos.clear();
+            // pol.draw(gc);
         });
     }
     
     private void cliqueinochico(MouseEvent e) {
         cliquesNoChico++;
         Vertice v = new Vertice();
-        Ponto p = new Ponto();
-        
-        p.x = e.getX();
-        p.y = e.getY();
-        
-        pol.pontos.add(p);
-        
-        pol.draw(gc);
-        
-//        switch (cliquesNoChico) {
-//            case 1:
-//                x1 = e.getX();
-//                y1 = e.getY();
-//                break;
-//            case 2:
-//                x2 = e.getX();
-//                y2 = e.getY();
-//                
-//                gc.strokeLine(x1, y1, x2, y2);
-//                cliquesNoChico=0;
-//                break;
-//        }        
+        v.X = e.getX();
+        v.Y = e.getY();
+       /* switch (cliquesNoChico) {
+            case 1:
+                raio.Inicio=v;
+                break;
+            case 2:
+                raio.Fim=v;
+                cliquesNoChico=0;
+                break;
+        }*/
+
     }
 
-}
-
-class Ponto{
-    public double x, y;
-}
-
-class Poliline{
-    public List<Ponto> pontos = new ArrayList<>();
-    
-    public void draw(GraphicsContext c){
-        Ponto p = null;
-        
-        for(Ponto ponto : pontos){      //pega cada ponto da lista de pontos
-            if(p == null){
-                p = ponto;
-                continue;
-            }
-            
-            c.strokeLine(p.x, p.y, ponto.x, ponto.y);
-            p = ponto;
-        }
-    }
 }
