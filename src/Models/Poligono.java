@@ -43,14 +43,12 @@ public class Poligono {
         double grau = (360/lados);
         double R=abs(abs(fim.X)-abs(ini.X));
         //this.Vertices.add(fim);
-        Vertice V2=new Vertice();
+        //Vertice V2=new Vertice();
         System.out.println(this.Central.X+" "+this.Central.Y);
         for(int i=0;i<lados;i++){
             xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + grau) + V.X);
             ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + grau) + V.Y);
-            V2.X=xtemp;
-            V2.Y=ytemp;
-            Vertices.add(V2);
+            Vertices.add(new Vertice(xtemp,ytemp));
             System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
             System.out.println(R);
         }

@@ -80,8 +80,14 @@ public class FXMLDocumentController implements Initializable {
 
         for(int i=0;i<Novo.Vertices.size();i++){
             System.out.println(Novo.Vertices.get(i).X+" "+Novo.Vertices.get(i).Y);
+            if(i!=Novo.Vertices.size()-1){
+                gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(i+1).X,Novo.Vertices.get(i+1).Y);
+            }else{
+                gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(0).X,Novo.Vertices.get(0).Y);
+            }
+
         }
-        gc.strokeLine(50, 0, 50, 100);
+
     }
 
     public void carregou(){

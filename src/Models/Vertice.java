@@ -12,4 +12,9 @@ package Models;
 public class Vertice {
    public double X;
    public double Y;
+   public Vertice(){};
+   public Vertice(double x, double y){
+       this.X=x;
+       this.Y=y;
+   }
 }
