@@ -35,7 +35,7 @@ public class FXMLDocumentController implements Initializable {
     private Button Irregular;
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
-
+    public double x,y;
 
     GraphicsContext gc;
 
@@ -81,18 +81,24 @@ public class FXMLDocumentController implements Initializable {
         return resp;
     }
     public void Irregulares(MouseEvent e){
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        v1.X = e.getX();
-        v1.Y = e.getX();
-        if(cliques==0){
-            novoIrregular.add(v1);
-            cliques++;
-        }
-        if(cliques==1){
-            novoIrregular.add(v1);
 
+        if(cliques==0){
+            novoIrregular.add( new Vertice(e.getX(),e.getY()));
+            cliques++;
+
+        }else if(cliques==1){
+            novoIrregular.add( new Vertice(e.getX(),e.getY()));
+            double x1,y1,x2,y2;
+            x1=novoIrregular.get(novoIrregular.size()-1).X;
+            y1=novoIrregular.get(novoIrregular.size()-1).Y;
+            x2=novoIrregular.get(novoIrregular.size()-2).X;
+            y2=novoIrregular.get(novoIrregular.size()-2).Y;
+            System.out.println(x1+" "+y1+" size "+novoIrregular.size());
+            System.out.println(x2+" "+y2);
+            gc.strokeLine(x1, y1, x2, y2);
+            cliques=0;
         }
+
 
 
     }
