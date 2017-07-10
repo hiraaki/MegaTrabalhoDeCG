@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -31,6 +32,8 @@ public class FXMLDocumentController implements Initializable {
     public Aresta raio;
     @FXML
     private Button Quadrado;
+    @FXML
+    private Button Irregular;
     double x1, y1, x2, y2;
     public int cliquesNoChico;
 
@@ -65,6 +68,10 @@ public class FXMLDocumentController implements Initializable {
         chico.setOnMouseClicked(this::criaRegular);
 
     }
+    public void criaIrregular(){
+
+    }
+
     public void criaRegular(MouseEvent e){
         System.out.println("dsadasdsadasdasasdas");
         Vertice v = new Vertice();
@@ -75,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
         v2.X=v.X+100;
         v2.Y=v.Y;
         this.poligonos=new ArrayList();
-        Poligono Novo = new Poligono(v,v2,4);
+        Poligono Novo = new Poligono(v,v2,100);
 
 
         for(int i=0;i<Novo.Vertices.size();i++){
@@ -90,8 +97,8 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    public void carregou(){
-        chico.getScene().setOnKeyPressed((KeyEvent e) -> {
+    public void carregou(Scene scene){
+        scene.setOnKeyPressed((KeyEvent e) -> {
             gc.clearRect(0, 0, chico.getWidth(), chico.getHeight());
             cliquesNoChico = 0;
             //pol.pontos.clear();

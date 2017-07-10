@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author carina.dalsasso
+ * @author Hamã Cândido
+ * @author Mauricio Hiraaki Ishida
  */
 public class NomeCriativo extends Application {
     
@@ -22,7 +23,7 @@ public class NomeCriativo extends Application {
                 
         Scene scene = new Scene(load.load());
         
-        ((Controler.FXMLDocumentController)load.getController()).carregou();
+        ((Controler.FXMLDocumentController)load.getController()).carregou(scene);
         
         stage.setScene(scene);
         stage.show();

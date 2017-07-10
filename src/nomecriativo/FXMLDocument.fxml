@@ -5,52 +5,57 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
 <BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
-   <center>
-      <Canvas fx:id="chico" height="471.0" layoutX="2.0" width="797.0" />
-   </center>
-   <top>
-      <MenuBar style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Arquivo ">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Novo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Abrir" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Salvar" />
-                  <MenuItem mnemonicParsing="false" text="Salvar como" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Sair" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Sobre">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <left>
-      <Pane prefHeight="471.0" prefWidth="184.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Quadrado" onAction="#criaQuadrado" />
-            <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Irregular" />
-            <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Button" />
-            <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="Button" />
-         </children>
-         <effect>
-            <Bloom threshold="1.0" />
-         </effect>
-      </Pane>
-   </left>
-    
+    <center>
+        <ScrollPane>
+            <content>
+                <Canvas fx:id="chico" height="471.0" width="746.0" />
+            </content>
+        </ScrollPane>
+    </center>
+    <top>
+        <MenuBar style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Arquivo ">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Novo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Abrir" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Salvar" />
+                        <MenuItem mnemonicParsing="false" text="Salvar como" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Sair" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Sobre">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <left>
+        <Pane prefHeight="471.0" prefWidth="197.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaQuadrado" text="Quadrado" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Triangulo" />
+                <Button fx:id="Irregular" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" onAction="#criaIrregular" text="Irregular" />
+                <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="N lados" />
+                <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Pentagono" />
+                <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="Hexagono" />
+            </children>
+            <effect>
+                <Bloom threshold="1.0" />
+            </effect>
+        </Pane>
+    </left>
+
 </BorderPane>
