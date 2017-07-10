@@ -54,6 +54,7 @@ public class FXMLDocumentController implements Initializable {
 
         cliquesNoChico = 0;
 
+
         gc = chico.getGraphicsContext2D();
 
         gc.setStroke(Color.BLUE);
