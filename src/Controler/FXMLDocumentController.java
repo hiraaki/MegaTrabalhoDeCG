@@ -8,7 +8,6 @@ import Models.*;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,14 +27,14 @@ public class FXMLDocumentController implements Initializable {
 
     private ArrayList<Poligono> poligonos;
     @FXML
-    private Canvas chico;
+    private Canvas drawingArea;
     public Aresta raio;
     @FXML
     private Button Quadrado;
     @FXML
     private Button Irregular;
-    double x1, y1, x2, y2;
-    public int cliquesNoChico;
+    public int cliques;
+    public ArrayList<Vertice> novoIrregular;
 
 
     GraphicsContext gc;
@@ -45,17 +44,20 @@ public class FXMLDocumentController implements Initializable {
         // TODO
 
         //pol = new Poliline();
-        //chico.setOnMouseClicked(this::cliqueinochico);
+        this.poligonos=new ArrayList();
+        this.novoIrregular = new ArrayList();
+        //drawingArea.setOnMouseClicked(this::cliqueinochico);
 
 
-       /* chico.getParent().setOnKeyPressed((KeyEvent e) -> {
+       /* drawingArea.getParent().setOnKeyPressed((KeyEvent e) -> {
             System.out.println("uheuheuhe");
         });*/
 
-        cliquesNoChico = 0;
+
+        cliques = 0;
 
 
-        gc = chico.getGraphicsContext2D();
+        gc = drawingArea.getGraphicsContext2D();
 
         gc.setStroke(Color.BLUE);
         /*
@@ -66,26 +68,45 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaQuadrado(){
-        chico.setOnMouseClicked(this::criaRegular);
+
+        drawingArea.setOnMouseClicked(this::criaRegular);
 
     }
     public void criaIrregular(){
+        drawingArea.setOnMouseClicked(this::Irregulares);
+    }
+
+    public double distancia(Vertice A, Vertice B){
+        double resp = Math.sqrt(Math.pow(B.X-A.X,2)+Math.pow(B.Y-A.Y,2));
+        return resp;
+    }
+    public void Irregulares(MouseEvent e){
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        v1.X = e.getX();
+        v1.Y = e.getX();
+        if(cliques==0){
+            novoIrregular.add(v1);
+            cliques++;
+        }
+        if(cliques==1){
+            novoIrregular.add(v1);
+
+        }
+
 
     }
 
     public void criaRegular(MouseEvent e){
-        System.out.println("dsadasdsadasdasasdas");
+        //System.out.println("dsadasdsadasdasasdas");
         Vertice v = new Vertice();
         Vertice v2 = new Vertice();
         v.X = e.getX();
-        System.out.println("fdfxsggdsgv");
+        //System.out.println("fdfxsggdsgv");
         v.Y = e.getY();
         v2.X=v.X+100;
         v2.Y=v.Y;
-        this.poligonos=new ArrayList();
-        Poligono Novo = new Poligono(v,v2,100);
-
-
+        Poligono Novo = new Poligono(v,v2,4);
         for(int i=0;i<Novo.Vertices.size();i++){
             System.out.println(Novo.Vertices.get(i).X+" "+Novo.Vertices.get(i).Y);
             if(i!=Novo.Vertices.size()-1){
@@ -96,32 +117,16 @@ public class FXMLDocumentController implements Initializable {
 
         }
 
+
     }
 
     public void carregou(Scene scene){
         scene.setOnKeyPressed((KeyEvent e) -> {
-            gc.clearRect(0, 0, chico.getWidth(), chico.getHeight());
-            cliquesNoChico = 0;
+            gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+            cliques = 0;
             //pol.pontos.clear();
             // pol.draw(gc);
         });
     }
-    
-    private void cliqueinochico(MouseEvent e) {
-        cliquesNoChico++;
-        Vertice v = new Vertice();
-        v.X = e.getX();
-        v.Y = e.getY();
-       /* switch (cliquesNoChico) {
-            case 1:
-                raio.Inicio=v;
-                break;
-            case 2:
-                raio.Fim=v;
-                cliquesNoChico=0;
-                break;
-        }*/
 
-    }
-
-}
+ }

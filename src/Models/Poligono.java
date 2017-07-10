@@ -49,8 +49,8 @@ public class Poligono {
             xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + grau) + V.X);
             ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + grau) + V.Y);
             Vertices.add(new Vertice(xtemp,ytemp));
-            System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
-            System.out.println(R);
+            //System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
+            //System.out.println(R);
         }
         for (int i =0 ; i<this.Vertices.size();i++){
             System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
@@ -58,9 +58,9 @@ public class Poligono {
         //setArests();
 
     }
-    public Poligono(ArrayList<Aresta> arestas){
-        Arestas = new ArrayList();
-        this.Arestas=arestas;
+    public Poligono(ArrayList<Vertice> vertices){
+        Vertices = new ArrayList();
+        this.Vertices=vertices;
         this.setArestas();
     }
     public void setArestas(){

@@ -15,7 +15,7 @@
     <center>
         <ScrollPane>
             <content>
-                <Canvas fx:id="chico" height="471.0" width="746.0" />
+                <Canvas fx:id="drawingArea" height="471.0" width="746.0" />
             </content>
         </ScrollPane>
     </center>
