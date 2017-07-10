@@ -28,7 +28,7 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Abrir" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Salvar" />
+                        <MenuItem mnemonicParsing="false"   text="Salvar" />
                         <MenuItem mnemonicParsing="false" text="Salvar como" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Sair" />
