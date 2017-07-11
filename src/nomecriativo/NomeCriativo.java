@@ -26,6 +26,8 @@ public class NomeCriativo extends Application {
         ((Controler.FXMLDocumentController)load.getController()).carregou(scene);
         
         stage.setScene(scene);
+        stage.setTitle("Batata");
+        stage.setResizable(false);
         stage.show();
     }
 
