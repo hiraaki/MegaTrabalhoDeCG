@@ -9,12 +9,15 @@ import Models.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -33,6 +36,9 @@ public class FXMLDocumentController implements Initializable {
     private Button Quadrado;
     @FXML
     private Button Irregular;
+    @FXML
+    private ChoiceBox<Integer> N;
+
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
     public double x,y;
@@ -52,7 +58,12 @@ public class FXMLDocumentController implements Initializable {
        /* drawingArea.getParent().setOnKeyPressed((KeyEvent e) -> {
             System.out.println("uheuheuhe");
         });*/
+        N.getSelectionModel().getSelectedItem(); // pegar o valor selecionado
 
+        N.getSelectionModel().selectedItemProperty().addListener( // escutar quando o valor muda
+                (ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) -> {
+                    System.out.println(newValue);
+                });
 
         cliques = 0;
 
@@ -175,7 +186,8 @@ public class FXMLDocumentController implements Initializable {
         v.Y = e.getY();
         v2.X=v.X+100;
         v2.Y=v.Y;
-        Poligono Novo = new Poligono(v,v2,4);
+        int lados= N.getSelectionModel().getSelectedItem();
+        Poligono Novo = new Poligono(v,v2,lados);
         this.draw(Novo);
     }
     public void draw(Poligono Novo){
