@@ -15,7 +15,7 @@
     <center>
         <ScrollPane>
             <content>
-                <Canvas fx:id="drawingArea" height="471.0" width="746.0" />
+                <Canvas fx:id="drawingArea" height="600.0" width="800.0" />
             </content>
         </ScrollPane>
     </center>
@@ -46,11 +46,11 @@
         <Pane prefHeight="471.0" prefWidth="197.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaQuadrado" text="Quadrado" />
-                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Triangulo" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="Triangulo" onAction="#criaTriangulo" />
                 <Button fx:id="Irregular" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" onAction="#criaIrregular" text="Irregular" />
-                <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="N lados" />
-                <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Pentagono" />
-                <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="Hexagono" />
+                <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" text="N lados" onAction="#criaNlados" />
+                <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Pentagono" onAction="#criaPentagono" />
+                <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" text="Hexagono" onAction="#criaHexagono"/>
             </children>
             <effect>
                 <Bloom threshold="1.0" />

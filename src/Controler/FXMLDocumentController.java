@@ -59,7 +59,7 @@ public class FXMLDocumentController implements Initializable {
 
         gc = drawingArea.getGraphicsContext2D();
 
-        gc.setStroke(Color.BLUE);
+        gc.setStroke(Color.BLACK);
         /*
         gc.strokeLine(50, 0, 50, 100);
         gc.strokeLine(50, 100, 150, 100);
@@ -68,13 +68,25 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaQuadrado(){
-
-        drawingArea.setOnMouseClicked(this::criaRegular);
-
+        drawingArea.setOnMouseClicked(this::criaRegularQuadrado);
+    }
+    public void criaTriangulo(){
+        drawingArea.setOnMouseClicked(this::criaRegularTriangulo);
+    }
+    public void criaPentagono(){
+        drawingArea.setOnMouseClicked(this::criaRegularPentagono);
+    }
+    public void criaHexagono(){
+        drawingArea.setOnMouseClicked(this::criaRegularHexagono);
+    }
+    public void criaNlados(){
+        drawingArea.setOnMouseClicked(this::criaRegularNlados);
     }
     public void criaIrregular(){
         drawingArea.setOnMouseClicked(this::Irregulares);
     }
+
+
 
     public double distancia(Vertice A, Vertice B){
         double resp = Math.sqrt(Math.pow(B.X-A.X,2)+Math.pow(B.Y-A.Y,2));
@@ -93,26 +105,81 @@ public class FXMLDocumentController implements Initializable {
             y1=novoIrregular.get(novoIrregular.size()-1).Y;
             x2=novoIrregular.get(novoIrregular.size()-2).X;
             y2=novoIrregular.get(novoIrregular.size()-2).Y;
-            System.out.println(x1+" "+y1+" size "+novoIrregular.size());
-            System.out.println(x2+" "+y2);
-            gc.strokeLine(x1, y1, x2, y2);
-            cliques=0;
+
+            if(distancia(novoIrregular.get(0),novoIrregular.get(novoIrregular.size()-1))<10){
+                poligonos.add(new Poligono(novoIrregular));
+                x1=novoIrregular.get(0).X;
+                y1=novoIrregular.get(0).Y;
+                System.out.println(x1+" "+y1+" size "+novoIrregular.size());
+                System.out.println(x2+" "+y2);
+                gc.strokeLine(x1, y1, x2, y2);
+                novoIrregular.clear();
+                cliques=0;
+
+            }else {
+                System.out.println(x1+" "+y1+" size "+novoIrregular.size());
+                System.out.println(x2+" "+y2);
+                gc.strokeLine(x1, y1, x2, y2);
+                cliques=1;
+            }
         }
 
 
 
     }
 
-    public void criaRegular(MouseEvent e){
-        //System.out.println("dsadasdsadasdasasdas");
+    public void criaRegularQuadrado(MouseEvent e){
         Vertice v = new Vertice();
         Vertice v2 = new Vertice();
         v.X = e.getX();
-        //System.out.println("fdfxsggdsgv");
         v.Y = e.getY();
         v2.X=v.X+100;
         v2.Y=v.Y;
         Poligono Novo = new Poligono(v,v2,4);
+        this.draw(Novo);
+    }
+    public void criaRegularTriangulo(MouseEvent e){
+        Vertice v = new Vertice();
+        Vertice v2 = new Vertice();
+        v.X = e.getX();
+        v.Y = e.getY();
+        v2.X=v.X+100;
+        v2.Y=v.Y;
+        Poligono Novo = new Poligono(v,v2,3);
+        this.draw(Novo);
+    }
+    public void criaRegularPentagono(MouseEvent e){
+        Vertice v = new Vertice();
+        Vertice v2 = new Vertice();
+        v.X = e.getX();
+        v.Y = e.getY();
+        v2.X=v.X+100;
+        v2.Y=v.Y;
+        Poligono Novo = new Poligono(v,v2,5);
+        this.draw(Novo);
+    }
+    public void criaRegularHexagono(MouseEvent e){
+        Vertice v = new Vertice();
+        Vertice v2 = new Vertice();
+        v.X = e.getX();
+        v.Y = e.getY();
+        v2.X=v.X+100;
+        v2.Y=v.Y;
+        Poligono Novo = new Poligono(v,v2,6);
+        this.draw(Novo);
+    }
+    public void criaRegularNlados(MouseEvent e){
+        Vertice v = new Vertice();
+        Vertice v2 = new Vertice();
+        v.X = e.getX();
+        v.Y = e.getY();
+        v2.X=v.X+100;
+        v2.Y=v.Y;
+
+        Poligono Novo = new Poligono(v,v2,4);
+        this.draw(Novo);
+    }
+    public void draw(Poligono Novo){
         for(int i=0;i<Novo.Vertices.size();i++){
             System.out.println(Novo.Vertices.get(i).X+" "+Novo.Vertices.get(i).Y);
             if(i!=Novo.Vertices.size()-1){
@@ -120,10 +187,7 @@ public class FXMLDocumentController implements Initializable {
             }else{
                 gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(0).X,Novo.Vertices.get(0).Y);
             }
-
         }
-
-
     }
 
     public void carregou(Scene scene){

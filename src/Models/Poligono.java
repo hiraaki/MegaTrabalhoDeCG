@@ -60,9 +60,12 @@ public class Poligono {
     }
     public Poligono(ArrayList<Vertice> vertices){
         Vertices = new ArrayList();
-        this.Vertices=vertices;
-        this.setArestas();
+        for(Vertice v: vertices){
+            Vertices.add(new Vertice(v.X,v.Y));
+        }
+        //this.setArestas();
     }
+
     public void setArestas(){
         Aresta Na =new Aresta();
         for (int i = 0; i < Vertices.size(); i++) {
