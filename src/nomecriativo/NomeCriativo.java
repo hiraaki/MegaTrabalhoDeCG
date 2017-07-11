@@ -26,7 +26,7 @@ public class NomeCriativo extends Application {
         ((Controler.FXMLDocumentController)load.getController()).carregou(scene);
         
         stage.setScene(scene);
-        stage.setTitle("Batata");
+        stage.setTitle("Mega Mod de CG");
         stage.setResizable(false);
         stage.show();
     }
