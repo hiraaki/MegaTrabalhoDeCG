@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -11,10 +13,7 @@
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.collections.*?>
 
-
-<?import java.lang.String?>
 <BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
     <center>
         <ScrollPane>
@@ -49,10 +48,10 @@
     <left>
         <Pane prefHeight="602.0" prefWidth="262.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaQuadrado" text="Quadrado" />
-                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaTriangulo" text="Triangulo" />
-                <Button fx:id="Irregular" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="26.0" prefWidth="82.0" text="Irregular" />
-                <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="36.0" prefWidth="120.0" text="N lados">
+                <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaQuadrado" prefHeight="25.0" prefWidth="90.0" text="Quadrado" />
+                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaTriangulo" prefHeight="25.0" prefWidth="90.0" text="Triangulo" />
+                <Button fx:id="Irregular" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="25.0" prefWidth="90.0" text="Irregular" />
+                <Button layoutX="14.0" layoutY="150.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="36.0" prefWidth="114.0" text="N lados">
                <graphic>
                   <ChoiceBox prefHeight="26.0" prefWidth="1.0">
                       <items>
@@ -75,8 +74,10 @@
                       </items>
                   </ChoiceBox>
                </graphic></Button>
-                <Button layoutX="14.0" layoutY="81.0" mnemonicParsing="false" onAction="#criaPentagono" prefHeight="26.0" prefWidth="83.0" text="Pentagono" />
-                <Button layoutX="107.0" layoutY="81.0" mnemonicParsing="false" onAction="#criaHexagono" text="Hexagono" />
+                <Button layoutX="107.0" layoutY="47.0" mnemonicParsing="false" onAction="#criaPentagono" prefHeight="25.0" prefWidth="90.0" text="Pentagono" />
+                <Button layoutX="13.0" layoutY="82.0" mnemonicParsing="false" onAction="#criaHexagono" prefHeight="25.0" prefWidth="90.0" text="Hexagono" />
+            <Button layoutX="106.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Seleciona" />
+            <Button layoutX="13.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Excluir" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />
