@@ -15,5 +15,10 @@ public class Aresta {
     public Vertice Fim;
    // public Face Esquerda;
    // public Face Direita;
+    public Aresta(){}
+    public Aresta(Vertice inicio, Vertice fim){
+        this.Inicio=inicio;
+        this.Fim=fim;
+    }
     
 }

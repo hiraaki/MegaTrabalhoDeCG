@@ -32,8 +32,6 @@ public class Poligono {
         this.Central= ini;
         this.Arestas = new ArrayList();
         this.Vertices = new ArrayList();
-        //x' = x*cos(0) - y* sen(0);
-        //y' = x*sen(0) + y*cos(0);
         Vertice V=new Vertice();
         V=ini;
         double cos;
@@ -42,8 +40,6 @@ public class Poligono {
         double ytemp;
         double grau = (360/lados);
         double R=abs(abs(fim.X)-abs(ini.X));
-        //this.Vertices.add(fim);
-        //Vertice V2=new Vertice();
         System.out.println(this.Central.X+" "+this.Central.Y);
         for(int i=0;i<lados;i++){
             xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + grau) + V.X);
@@ -52,10 +48,10 @@ public class Poligono {
             //System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
             //System.out.println(R);
         }
-        for (int i =0 ; i<this.Vertices.size();i++){
+        /*for (int i =0 ; i<this.Vertices.size();i++){
             System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
-        }
-        //setArests();
+        }*/
+        this.setArestas();
 
     }
     public Poligono(ArrayList<Vertice> vertices){
@@ -63,22 +59,21 @@ public class Poligono {
         for(Vertice v: vertices){
             Vertices.add(new Vertice(v.X,v.Y));
         }
-        //this.setArestas();
+        this.setArestas();
     }
 
     public void setArestas(){
-        Aresta Na =new Aresta();
-        for (int i = 0; i < Vertices.size(); i++) {
-            Na.Inicio=Vertices.get(i);
-            if(i==Vertices.size()-1){
-                Na.Fim=Vertices.get(0);
-                this.Arestas.add(Na);
+
+        for (int i = 0; i < this.Vertices.size(); i++) {
+            System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
+            /*if(i!=this.Vertices.size()-1){
+                this.Arestas.add(new Aresta(this.Vertices.get(i),this.Vertices.get(i+1)));
             }else {
-                Na.Fim = Vertices.get(i + 1);
-                this.Arestas.add(Na);
+                this.Arestas.add(new Aresta(Vertices.get(i),this.Vertices.get(0)));
             }
-            System.out.println(Na.Inicio.X+" "+Na.Inicio.Y);
-            System.out.println(Na.Fim.X+" "+Na.Fim.Y);
+            System.out.println(this.Arestas.get(i).Inicio.X+" "+this.Arestas.get(i).Inicio.Y);
+            System.out.println(this.Arestas.get(i).Fim.X+" "+this.Arestas.get(i).Fim.Y);
+            */
         }
     }
     

@@ -110,15 +110,15 @@ public class FXMLDocumentController implements Initializable {
                 poligonos.add(new Poligono(novoIrregular));
                 x1=novoIrregular.get(0).X;
                 y1=novoIrregular.get(0).Y;
-                System.out.println(x1+" "+y1+" size "+novoIrregular.size());
-                System.out.println(x2+" "+y2);
+                //System.out.println(x1+" "+y1+" size "+novoIrregular.size());
+                //System.out.println(x2+" "+y2);
                 gc.strokeLine(x1, y1, x2, y2);
                 novoIrregular.clear();
                 cliques=0;
 
             }else {
-                System.out.println(x1+" "+y1+" size "+novoIrregular.size());
-                System.out.println(x2+" "+y2);
+                //System.out.println(x1+" "+y1+" size "+novoIrregular.size());
+                //System.out.println(x2+" "+y2);
                 gc.strokeLine(x1, y1, x2, y2);
                 cliques=1;
             }
@@ -175,7 +175,6 @@ public class FXMLDocumentController implements Initializable {
         v.Y = e.getY();
         v2.X=v.X+100;
         v2.Y=v.Y;
-
         Poligono Novo = new Poligono(v,v2,4);
         this.draw(Novo);
     }
@@ -194,8 +193,6 @@ public class FXMLDocumentController implements Initializable {
         scene.setOnKeyPressed((KeyEvent e) -> {
             gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
             cliques = 0;
-            //pol.pontos.clear();
-            // pol.draw(gc);
         });
     }
 
