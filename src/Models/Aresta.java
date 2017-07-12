@@ -10,7 +10,7 @@ package Models;
  * @author Mauricio Hiraaki Ishida
  * @author Hamã Candido
  */
-public class Aresta {
+public class Aresta implements java.io.Serializable {
     public Vertice Inicio;
     public Vertice Fim;
    // public Face Esquerda;

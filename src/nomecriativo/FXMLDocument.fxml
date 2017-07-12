@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
+<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
     <center>
         <ScrollPane>
             <content>
@@ -31,9 +31,9 @@
                     <items>
                         <MenuItem fx:id="Novo" mnemonicParsing="false" onAction="#novo" text="Novo" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Abrir" />
+                        <MenuItem fx:id="Abrir" mnemonicParsing="false" onAction="#open" text="Abrir" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="Salvar" mnemonicParsing="false" text="Salvar" onAction="#salvar"/>
+                        <MenuItem fx:id="Salvar" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
                     </items>
                 </Menu>
             </menus>
@@ -57,8 +57,14 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-                <Button fx:id="Irregular" layoutX="128.0" layoutY="246.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="25.0" prefWidth="90.0" text="Irregular" />
-                <Button layoutX="25.0" layoutY="283.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="36.0" prefWidth="114.0" text="N lados">
+                <Button fx:id="Irregular" layoutX="105.0" layoutY="160.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="64.0" prefWidth="68.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/export.png" />
+                     </image></ImageView>
+               </graphic></Button>
+                <Button layoutX="105.0" layoutY="245.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="36.0" prefWidth="114.0" text="N lados">
                <graphic>
                   <ChoiceBox fx:id="N" prefHeight="26.0" prefWidth="1.0">
                       <items>
@@ -97,8 +103,22 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="Seleciona" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="25.0" prefWidth="90.0" text="Seleciona" />
-            <Button fx:id="Excluir" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#Exclui" prefHeight="25.0" prefWidth="90.0" text="Excluir" />
+            <Button fx:id="Seleciona" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="60.0" prefWidth="69.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/4a7ffa250ac16a5428af856476e625a4.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="Excluir" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#Exclui" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/delete_sign1600.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             </children>
             <effect>
                 <Bloom threshold="1.0" />

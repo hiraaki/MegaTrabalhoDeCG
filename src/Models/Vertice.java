@@ -9,7 +9,7 @@ package Models;
  *
  * @author mhi
  */
-public class Vertice {
+public class Vertice implements java.io.Serializable {
    public double X;
    public double Y;
    public Vertice(){};

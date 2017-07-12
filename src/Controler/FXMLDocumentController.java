@@ -9,7 +9,11 @@ import Models.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +54,8 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem Novo;
     @FXML
     private MenuItem Salvar;
+    @FXML
+    private MenuItem Abrir;
     @FXML
     private ChoiceBox<Integer> N;
     public int selecionado;
@@ -123,12 +129,51 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void salvar(){
-        Stage stage=new Stage();
-        FileChooser filedir = new FileChooser();
-        filedir.setTitle("Salvar");
-        filedir.showOpenDialog(stage);
+        FileChooser chooser = new FileChooser();
+        FileChooser filter = new FileChooser();
+        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
+        chooser.getExtensionFilters().add(extFiler);
+        chooser.setTitle("Salvar Cena");
+        String savef = chooser.showSaveDialog(drawingArea.getScene().getWindow()).toString();
+        save(savef);
 
     }
+    public void save(String fileName) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(out);
+            oos.writeObject(poligonos);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void open() {
+        FileChooser chooser = new FileChooser();
+        FileChooser filter = new FileChooser();
+        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
+        chooser.getExtensionFilters().add(extFiler);
+        chooser.setTitle("Abrir Cena");
+        String openf = chooser.showOpenDialog(drawingArea.getScene().getWindow()).toString();
+        load(openf);
+    }
+
+    public void load(String fileName) {
+        try {
+            FileInputStream in = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(in);
+            poligonos = (ArrayList<Poligono>) (ois.readObject());
+        } catch (Exception e) {
+            System.out.println("Problem serializing: " + e);
+        }
+        System.out.println("este é o arquivo");
+        for(int i=0;i<poligonos.size();i++){
+            draw(poligonos.get(i));
+        }
+        //return null;
+    }
+
 
     public void selecionar(MouseEvent e){
         double menor=9999999999999.0;
