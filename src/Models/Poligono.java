@@ -6,6 +6,7 @@
 package Models;
 import com.sun.javafx.geom.Vec2d;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -15,7 +16,7 @@ import static java.lang.Math.abs;
  * @author Mauricio Hiraaki Ishida
  * @author Hamã Candido
  */
-public class Poligono {
+public class Poligono implements Serializable{
     public Vertice Central;
     public ArrayList<Aresta> Arestas;
     public ArrayList<Vertice> Vertices;

@@ -23,7 +23,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
@@ -47,6 +48,8 @@ public class FXMLDocumentController implements Initializable {
     private Button Excluir;
     @FXML
     private MenuItem Novo;
+    @FXML
+    private MenuItem Salvar;
     @FXML
     private ChoiceBox<Integer> N;
     public int selecionado;
@@ -119,6 +122,13 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    public void salvar(){
+        Stage stage=new Stage();
+        FileChooser filedir = new FileChooser();
+        filedir.setTitle("Salvar");
+        filedir.showOpenDialog(stage);
+
+    }
 
     public void selecionar(MouseEvent e){
         double menor=9999999999999.0;
@@ -132,7 +142,7 @@ public class FXMLDocumentController implements Initializable {
                     novoselect=i;
                 }
             }
-            System.out.println(i);
+            //System.out.println(i);
         }
         if(novoselect==selecionado){
             selecionado=-1;
@@ -313,6 +323,7 @@ public class FXMLDocumentController implements Initializable {
 
         return distanceSegment;
     }
+
 
 
 
