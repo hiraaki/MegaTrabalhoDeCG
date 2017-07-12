@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
+<?import java.lang.Integer?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<?import java.lang.Integer?>
 <BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
     <center>
         <ScrollPane>
@@ -30,19 +29,13 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Arquivo ">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Novo" />
+                        <MenuItem mnemonicParsing="false" onAction="#novo" text="Novo" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Abrir" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Salvar" />
-                        <MenuItem mnemonicParsing="false" text="Salvar como" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Sair" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Sobre">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
                     </items>
                 </Menu>
             </menus>
@@ -106,8 +99,8 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="Seleciona" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Seleciona" />
-            <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Excluir" />
+            <Button fx:id="Seleciona" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="25.0" prefWidth="90.0" text="Seleciona" />
+            <Button fx:id="Excluir" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#Exclui" prefHeight="25.0" prefWidth="90.0" text="Excluir" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />

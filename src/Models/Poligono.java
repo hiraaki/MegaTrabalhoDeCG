@@ -25,9 +25,8 @@ public class Poligono {
         this.Vertices = new ArrayList();
         this.Vertices = new ArrayList();
 
-
     }
-/*tomanucu*/
+
     public Poligono(Vertice ini, Vertice fim, int lados){
         this.Central= new Vertice();
         this.Central= ini;
@@ -65,12 +64,11 @@ public class Poligono {
     }
 
     public void setArestas(){
-        double x=0,y=0;
         for (int i = 0; i < this.Vertices.size(); i++) {
             if(i!=this.Vertices.size()-1){
                 this.Arestas.add(new Aresta(this.Vertices.get(i),this.Vertices.get(i+1)));
             }else if(i==this.Vertices.size()-1){
-                this.Arestas.add(new Aresta(new Vertice(x,y),this.Vertices.get(0)));
+                this.Arestas.add(new Aresta(this.Vertices.get(i),this.Vertices.get(0)));
             }
 
         }

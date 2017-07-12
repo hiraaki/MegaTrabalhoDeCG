@@ -23,7 +23,7 @@ public class NomeCriativo extends Application {
                 
         Scene scene = new Scene(load.load());
         
-        ((Controler.FXMLDocumentController)load.getController()).carregou(scene);
+        //((Controler.FXMLDocumentController)load.getController()).carregou(scene);
         
         stage.setScene(scene);
         stage.setTitle("Mega Mod de CG ");
