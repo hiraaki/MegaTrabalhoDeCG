@@ -126,5 +126,8 @@ public class Poligono implements Serializable{
         }
         this.calcCentroid();
     }
+    public void scala(){
+
+    }
     
 }

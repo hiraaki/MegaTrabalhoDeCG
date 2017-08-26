@@ -101,25 +101,37 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaQuadrado(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularQuadrado);
     }
     public void criaTriangulo(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularTriangulo);
     }
     public void criaPentagono(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularPentagono);
     }
     public void criaHexagono(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularHexagono);
     }
     public void criaNlados(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularNlados);
     }
     public void criaIrregular(){
+        drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::Irregulares);
     }
-    public void seleciona(){ drawingArea.setOnMouseClicked(this::selecionar);}
-    public void Arrasta(){ drawingArea.setOnMouseDragged(this::Translada);}
+    public void seleciona(){
+        drawingArea.setOnMouseDragged(null);
+        drawingArea.setOnMouseClicked(this::selecionar);
+    }
+    public void Arrasta(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMouseDragged(this::Translada);
+    }
 
     public void Translada(javafx.scene.input.MouseEvent mouseEvent) {
         Vertice v = new Models.Vertice(mouseEvent.getX(),mouseEvent.getY());
