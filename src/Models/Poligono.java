@@ -53,15 +53,22 @@ public class Poligono implements Serializable{
             System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
         }*/
         this.setArestas();
+        System.out.println("Area: "+getArea());
+        calcCentroid();
+        System.out.println("Centroid :"+Central.X+","+Central.Y);
 
     }
     public Poligono(ArrayList<Vertice> vertices){
+        this.Central = new Vertice();
         Vertices = new ArrayList();
         Arestas = new ArrayList();
         for(Vertice v: vertices){
             Vertices.add(new Vertice(v.X,v.Y));
         }
         this.setArestas();
+        System.out.println("Area: "+getArea());
+        calcCentroid();
+        System.out.println("Centroid :"+Central.X+","+Central.Y);
     }
 
     public void setArestas(){
@@ -73,6 +80,31 @@ public class Poligono implements Serializable{
             }
 
         }
+    }
+    public double getArea(){
+        double area=0;
+        double soma=0;
+        Aresta a= new Aresta();
+        for (int i = 0; i < this.Arestas.size(); i++) {
+            a=this.Arestas.get(i);
+            soma+=(a.Inicio.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y);
+        }
+        area=soma/2;
+        return area;
+    }
+    public void calcCentroid(){
+        double soma=0;
+        double area = getArea();
+        for (Aresta a: this.Arestas) {
+            soma+=(a.Inicio.X+a.Fim.X)*((a.Fim.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y));
+        }
+        this.Central.X=soma/(6*area);
+        soma=0;
+        for (Aresta a: this.Arestas) {
+            soma+=(a.Inicio.Y+a.Fim.Y)*((a.Fim.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y));
+        }
+        this.Central.Y=soma/(6*area);
+
     }
     
     

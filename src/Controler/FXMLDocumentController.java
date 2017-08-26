@@ -168,6 +168,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Problem serializing: " + e);
         }
         System.out.println("este é o arquivo");
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         for(int i=0;i<poligonos.size();i++){
             draw(poligonos.get(i));
         }
@@ -208,6 +209,9 @@ public class FXMLDocumentController implements Initializable {
                 gc.setStroke(Color.BLACK);
                 draw(poligonos.get(i));
             }
+        }
+        for(int i=0;i<(novoIrregular.size()-1);i++){
+            gc.strokeLine(novoIrregular.get(i).X, novoIrregular.get(i).Y, novoIrregular.get(i+1).X,novoIrregular.get(i+1).Y);
         }
 
     }
@@ -304,6 +308,7 @@ public class FXMLDocumentController implements Initializable {
         int lados= N.getSelectionModel().getSelectedItem();
         poligonos.add( new Poligono(v,v2,lados));
         this.draw(poligonos.get(poligonos.size()-1));
+        novoIrregular.clear();
     }
     public void draw(Poligono Novo){
         for(int i=0;i<Novo.Vertices.size();i++){
@@ -313,6 +318,9 @@ public class FXMLDocumentController implements Initializable {
             }else{
                 gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(0).X,Novo.Vertices.get(0).Y);
             }
+        }
+        for(int i=0;i<(novoIrregular.size()-1);i++){
+            gc.strokeLine(novoIrregular.get(i).X, novoIrregular.get(i).Y, novoIrregular.get(i+1).X,novoIrregular.get(i+1).Y);
         }
     }
 
