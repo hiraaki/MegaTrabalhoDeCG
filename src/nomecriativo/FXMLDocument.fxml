@@ -119,6 +119,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button layoutX="17.0" layoutY="325.0" mnemonicParsing="false" text="Translada" onAction="#Arrasta"  fx:id="Translada"/>
             </children>
             <effect>
                 <Bloom threshold="1.0" />

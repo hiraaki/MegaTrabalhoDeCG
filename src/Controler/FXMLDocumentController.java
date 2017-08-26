@@ -58,6 +58,8 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem Abrir;
     @FXML
     private ChoiceBox<Integer> N;
+    @javafx.fxml.FXML
+    private  Button Translada;
     public int selecionado;
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
@@ -116,7 +118,22 @@ public class FXMLDocumentController implements Initializable {
     public void criaIrregular(){
         drawingArea.setOnMouseClicked(this::Irregulares);
     }
-    public void seleciona(){drawingArea.setOnMouseClicked(this::selecionar);}
+    public void seleciona(){ drawingArea.setOnMouseClicked(this::selecionar);}
+    public void Arrasta(){ drawingArea.setOnMouseDragged(this::Translada);}
+
+    public void Translada(javafx.scene.input.MouseEvent mouseEvent) {
+        Vertice v = new Models.Vertice(mouseEvent.getX(),mouseEvent.getY());
+        if(selecionado!=-1){
+            if(mouseEvent.getX()!=poligonos.get(selecionado).Central.X)
+                if(mouseEvent.getY()!=poligonos.get(selecionado).Central.Y)
+                    poligonos.get(selecionado).translada(v);
+                    gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+                    drawall();
+
+
+        }
+    }
+
     public void Exclui(){
         if(selecionado!=-1) {
             poligonos.remove(selecionado);
@@ -127,6 +144,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
     }
+
 
     public void salvar(){
         FileChooser chooser = new FileChooser();
@@ -169,9 +187,7 @@ public class FXMLDocumentController implements Initializable {
         }
         System.out.println("este é o arquivo");
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
-        for(int i=0;i<poligonos.size();i++){
-            draw(poligonos.get(i));
-        }
+        this.drawall();
         //return null;
     }
 
@@ -319,9 +335,7 @@ public class FXMLDocumentController implements Initializable {
                 gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(0).X,Novo.Vertices.get(0).Y);
             }
         }
-        for(int i=0;i<(novoIrregular.size()-1);i++){
-            gc.strokeLine(novoIrregular.get(i).X, novoIrregular.get(i).Y, novoIrregular.get(i+1).X,novoIrregular.get(i+1).Y);
-        }
+
     }
 
     public void novo(){
@@ -377,7 +391,13 @@ public class FXMLDocumentController implements Initializable {
         return distanceSegment;
     }
 
-
-
+    public void drawall(){
+        for (Poligono p: poligonos) {
+            draw(p);
+        }
+        for(int i=0;i<(novoIrregular.size()-1);i++){
+            gc.strokeLine(novoIrregular.get(i).X, novoIrregular.get(i).Y, novoIrregular.get(i+1).X,novoIrregular.get(i+1).Y);
+        }
+    }
 
  }
