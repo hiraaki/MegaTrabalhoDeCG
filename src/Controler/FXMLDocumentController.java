@@ -141,8 +141,6 @@ public class FXMLDocumentController implements Initializable {
                     poligonos.get(selecionado).translada(v);
                     gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
                     drawall();
-
-
         }
     }
 

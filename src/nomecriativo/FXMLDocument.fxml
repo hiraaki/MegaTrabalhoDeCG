@@ -119,7 +119,10 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button layoutX="17.0" layoutY="325.0" mnemonicParsing="false" text="Translada" onAction="#Arrasta"  fx:id="Translada"/>
+            <Button fx:id="Translada" layoutX="17.0" layoutY="325.0" mnemonicParsing="false" onAction="#Arrasta" text="Translada" />
+            <Button layoutX="110.0" layoutY="325.0" mnemonicParsing="false" text="Scala XY" />
+            <Button layoutX="18.0" layoutY="361.0" mnemonicParsing="false" text="Scala X" />
+            <Button layoutX="110.0" layoutY="361.0" mnemonicParsing="false" text="Scala Y" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />

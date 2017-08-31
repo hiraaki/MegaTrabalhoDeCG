@@ -126,8 +126,45 @@ public class Poligono implements Serializable{
         }
         this.calcCentroid();
     }
-    public void scala(){
+    public void scalaX(double novoTamanho){
+        for(Vertice v : Vertices){
+            v.X=v.X*novoTamanho;
+        }
+        Vertice antigoCentro = this.Central;
+        calcCentroid();
+        this.translada(antigoCentro);
+    }
+    public void scalaY(double novoTamanho){
+        for(Vertice v : Vertices){
+            v.Y=v.Y*novoTamanho;
+        }
+        Vertice antigoCentro = this.Central;
+        calcCentroid();
+        this.translada(antigoCentro);
+    }
+    public void scalaXY(double novoTamanho){
+        for(Vertice v : Vertices){
+            v.Y=v.Y*novoTamanho;
+            v.Y=v.X*novoTamanho;
+        }
+        Vertice antigoCentro = this.Central;
+        calcCentroid();
+        this.translada(antigoCentro);
+    }
+    public void rotaciona(Double angulo){
+        double radians = Math.toRadians(angulo);
+        double seno = Math.sin(radians);
+        double cose = Math.cos(radians);
+        double ante=0;
+        for(Vertice v: Vertices){
+            ante=(v.X*cose)-(v.Y*seno);
+            v.Y=(v.X*seno)+(v.Y*cose);
+            v.X=ante;
+        }
+        Vertice antigoCentro = this.Central;
+        calcCentroid();
+        this.translada(antigoCentro);
 
     }
-    
+
 }
