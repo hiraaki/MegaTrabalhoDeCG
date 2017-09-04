@@ -130,7 +130,7 @@ public class Poligono implements Serializable{
         for(Vertice v : Vertices){
             v.X=v.X*novoTamanho;
         }
-        Vertice antigoCentro = this.Central;
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
         calcCentroid();
         this.translada(antigoCentro);
     }
@@ -138,18 +138,21 @@ public class Poligono implements Serializable{
         for(Vertice v : Vertices){
             v.Y=v.Y*novoTamanho;
         }
-        Vertice antigoCentro = this.Central;
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
         calcCentroid();
         this.translada(antigoCentro);
     }
-    public void scalaXY(double novoTamanho){
+    public void scalaXY(double multiplicador){
         for(Vertice v : Vertices){
-            v.Y=v.Y*novoTamanho;
-            v.Y=v.X*novoTamanho;
+            v.Y=v.Y*multiplicador;
+            v.X=v.X*multiplicador;
         }
-        Vertice antigoCentro = this.Central;
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
         calcCentroid();
+        //System.out.println(antigoCentro.X+" "+antigoCentro.Y);
+        //System.out.println(this.Central.X+" "+this.Central.Y);
         this.translada(antigoCentro);
+
     }
     public void rotaciona(Double angulo){
         double radians = Math.toRadians(angulo);

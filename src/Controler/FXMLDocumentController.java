@@ -58,25 +58,34 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem Abrir;
     @FXML
     private ChoiceBox<Integer> N;
-    @javafx.fxml.FXML
+    @FXML
     private  Button Translada;
+    @FXML
+    private Button ScalaXY;
+    @FXML
+    private Button ScalaX;
+    @FXML
+    private Button ScalaY;
     public int selecionado;
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
-    public double x,y;
-
+    public Vertice Pressed;
+    public double Distancia;
     GraphicsContext gc;
+    public double Fator;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        //pol = new Poliline();
+
         this.poligonos=new ArrayList();
         this.novoIrregular = new ArrayList();
-        //drawingArea.setOnMouseClicked(this::cliqueinochico);
-        this.selecionado=-1;
 
+        this.selecionado=-1;
+        this.Pressed=new Vertice();
+        this.Distancia=0.0;
+        this.Fator=0.0;
        /* drawingArea.getParent().setOnKeyPressed((KeyEvent e) -> {
             System.out.println("uheuheuhe");
         });*/
@@ -93,11 +102,15 @@ public class FXMLDocumentController implements Initializable {
         gc = drawingArea.getGraphicsContext2D();
 
         gc.setStroke(Color.BLACK);
-        /*
-        gc.strokeLine(50, 0, 50, 100);
-        gc.strokeLine(50, 100, 150, 100);
-        gc.strokeLine(150, 100, 150, 0);
-        gc.strokeLine(50, 0, 150, 0);*/
+
+    }
+    public void setPressed(MouseEvent e){
+        this.Pressed.X=e.getX();
+        this.Pressed.Y=e.getY();
+    }
+    public void setUnpressed(MouseEvent e){
+        this.Pressed.X=0;
+        this.Pressed.Y=0;
     }
 
     public void criaQuadrado(){
@@ -133,8 +146,71 @@ public class FXMLDocumentController implements Initializable {
         drawingArea.setOnMouseDragged(this::Translada);
     }
 
-    public void Translada(javafx.scene.input.MouseEvent mouseEvent) {
-        Vertice v = new Models.Vertice(mouseEvent.getX(),mouseEvent.getY());
+    public void scalaY(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::scalay);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void scalaX(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::scalax);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+
+    public void scalaXY(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::scalaxy);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void scalax(MouseEvent e){
+        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator>this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).scalaX(1.03);
+        }else if(fator<this.Fator){
+            //System.out.println(this.Fator-fator);
+            poligonos.get(selecionado).scalaX(0.97);
+        }
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
+    }
+
+    public void scalay(MouseEvent e){
+        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator>this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).scalaY(1.03);
+        }else if(fator<this.Fator){
+            //System.out.println(this.Fator-fator);
+            poligonos.get(selecionado).scalaY(0.97);
+        }
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
+    }
+
+    public void scalaxy(MouseEvent e){
+        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator>this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).scalaXY(1.03);
+        }else if(fator<this.Fator){
+            //System.out.println(this.Fator-fator);
+            poligonos.get(selecionado).scalaXY(0.97);
+        }
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
+        //poligonos.get(selecionado).printVertices();
+    }
+
+
+    public void Translada(MouseEvent mouseEvent) {
+        Vertice v = new Vertice(mouseEvent.getX(),mouseEvent.getY());
         if(selecionado!=-1){
             if(mouseEvent.getX()!=poligonos.get(selecionado).Central.X)
                 if(mouseEvent.getY()!=poligonos.get(selecionado).Central.Y)
