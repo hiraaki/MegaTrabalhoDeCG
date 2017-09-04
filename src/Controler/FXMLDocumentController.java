@@ -66,6 +66,8 @@ public class FXMLDocumentController implements Initializable {
     private Button ScalaX;
     @FXML
     private Button ScalaY;
+    @FXML
+    private Button Rotacao;
     public int selecionado;
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
@@ -159,11 +161,80 @@ public class FXMLDocumentController implements Initializable {
         drawingArea.setOnMousePressed(this::setUnpressed);
     }
 
+
     public void scalaXY(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::scalaxy);
         drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void cisalhamentoX(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::cisalhamentox);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void cisalhamentoY(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::cisalhamentoy);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void rotacao(){
+        drawingArea.setOnMouseClicked(null);
+        drawingArea.setOnMousePressed(this::setPressed);
+        drawingArea.setOnMouseDragged(this::rotaciona);
+        drawingArea.setOnMousePressed(this::setUnpressed);
+    }
+    public void rotaciona(MouseEvent e){
+        Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
+        double fator = calAngulo(centro,Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator!=this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).rotaciona(fator);
+            this.Fator=fator;
+            gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+            drawall();
+        }
+
+    }
+    public double calAngulo(Vertice central,Vertice ini, Vertice fim){
+        ini.X=ini.X-central.X;
+        ini.Y=ini.Y-central.Y;
+        fim.X=fim.X-central.X;
+        fim.Y=fim.Y-central.Y;
+        central.X=central.X-central.X;
+        central.Y=central.Y-central.Y;
+        double compIni = distancia(central,ini);
+        double compFim = distancia(central,fim);
+        double dividendo=(ini.X*fim.X)+(ini.Y*fim.Y);
+        return dividendo/(compIni*compFim);
+    }
+    public void cisalhamentox(MouseEvent e){
+        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator>this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).cisalhamentoX(0.20);
+        }else if(fator<this.Fator){
+            //System.out.println(this.Fator-fator);
+            poligonos.get(selecionado).cisalhamentoX(-0.20);
+        }
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
+    }
+    public void cisalhamentoy(MouseEvent e){
+        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
+        if(fator>this.Fator){
+            //System.out.println(fator-this.Fator);
+            poligonos.get(selecionado).cisalhamentoY(0.20);
+        }else if(fator<this.Fator){
+            //System.out.println(this.Fator-fator);
+            poligonos.get(selecionado).cisalhamentoY(-0.20);
+        }
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
     }
     public void scalax(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));

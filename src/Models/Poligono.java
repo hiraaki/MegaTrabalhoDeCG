@@ -154,8 +154,7 @@ public class Poligono implements Serializable{
         this.translada(antigoCentro);
 
     }
-    public void rotaciona(Double angulo){
-        double radians = Math.toRadians(angulo);
+    public void rotaciona(double radians){
         double seno = Math.sin(radians);
         double cose = Math.cos(radians);
         double ante=0;
@@ -164,10 +163,26 @@ public class Poligono implements Serializable{
             v.Y=(v.X*seno)+(v.Y*cose);
             v.X=ante;
         }
-        Vertice antigoCentro = this.Central;
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
         calcCentroid();
         this.translada(antigoCentro);
 
+    }
+    public void cisalhamentoX(double fator){
+        for(Vertice v: Vertices){
+            v.X=v.X+(fator*v.Y);
+        }
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
+        calcCentroid();
+        this.translada(antigoCentro);
+    }
+    public void cisalhamentoY(double fator){
+        for(Vertice v: Vertices){
+            v.Y=v.Y+(fator*v.X);
+        }
+        Vertice antigoCentro = new Vertice(this.Central.X,this.Central.Y);
+        calcCentroid();
+        this.translada(antigoCentro);
     }
 
 }
