@@ -119,34 +119,50 @@ public class FXMLDocumentController implements Initializable {
     public void criaQuadrado(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularQuadrado);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void criaTriangulo(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularTriangulo);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void criaPentagono(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularPentagono);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void criaHexagono(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularHexagono);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void criaNlados(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::criaRegularNlados);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void criaIrregular(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::Irregulares);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void seleciona(){
         drawingArea.setOnMouseDragged(null);
         drawingArea.setOnMouseClicked(this::selecionar);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
     public void Arrasta(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMouseDragged(this::Translada);
+        drawingArea.setOnMousePressed(null);
+        drawingArea.setOnMouseReleased(null);
     }
 
     public void scalaY(){
@@ -190,62 +206,64 @@ public class FXMLDocumentController implements Initializable {
     public void rotaciona(MouseEvent e){
         System.out.println(this.Fator);
         Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
-        double fator = calAngulo(centro,Pressed,new Vertice(e.getX(),e.getY()));
-        poligonos.get(selecionado).rotaciona(fator-this.Fator);
-        System.out.println(fator +" "+(fator-this.Fator));
+        double fator = atan2((e.getX()-centro.X),(e.getY()-centro.Y));
+        poligonos.get(selecionado).rotaciona(this.Fator-fator);
+        System.out.println(fator +" "+(fator-this.Fator)+" "+toDegrees(fator));
         this.Fator=fator;
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
 
     }
-    public double calAngulo(Vertice central,Vertice Ini, Vertice fim){
-        Vertice ini=new Vertice(Ini.X,Ini.Y);
-        ini.X=ini.X-central.X;
-        ini.Y=ini.Y-central.Y;
-        fim.X=fim.X-central.X;
-        fim.Y=fim.Y-central.Y;
-        central.X=central.X-central.X;
-        central.Y=central.Y-central.Y;
-        double compIni = distancia(central,ini);
-        double compFim = distancia(central,fim);
-        double dividendo=(ini.X*fim.X)+(ini.Y*fim.Y);
-        return acos(dividendo/(compIni*compFim));
-    }
+
     public void cisalhamentox(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator>this.Fator){
-            //System.out.println(fator-this.Fator);
-            poligonos.get(selecionado).cisalhamentoX(0.20);
-        }else if(fator<this.Fator){
-            //System.out.println(this.Fator-fator);
-            poligonos.get(selecionado).cisalhamentoX(-0.20);
+        if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )>
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+            poligonos.get(selecionado).cisalhamentoX(0.2);
+
+        }else if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )<
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+            poligonos.get(selecionado).cisalhamentoX(-0.2);
+
         }
-        this.Fator=fator;
+        setPressed(e);
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
     }
     public void cisalhamentoy(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator>this.Fator){
-            //System.out.println(fator-this.Fator);
-            poligonos.get(selecionado).cisalhamentoY(0.20);
-        }else if(fator<this.Fator){
-            //System.out.println(this.Fator-fator);
-            poligonos.get(selecionado).cisalhamentoY(-0.20);
+        if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )>
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+            poligonos.get(selecionado).cisalhamentoY(0.2);
+
+        }else if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )<
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+            poligonos.get(selecionado).cisalhamentoY(-0.2);
+
         }
+        setPressed(e);
         this.Fator=fator;
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
     }
     public void scalax(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator>this.Fator){
-            //System.out.println(fator-this.Fator);
+        if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )>
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
             poligonos.get(selecionado).scalaX(1.03);
-        }else if(fator<this.Fator){
-            //System.out.println(this.Fator-fator);
+
+        }else if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )<
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
             poligonos.get(selecionado).scalaX(0.97);
+
         }
+        setPressed(e);
         this.Fator=fator;
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
@@ -253,27 +271,37 @@ public class FXMLDocumentController implements Initializable {
 
     public void scalay(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator>this.Fator){
-            //System.out.println(fator-this.Fator);
+        if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )>
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
             poligonos.get(selecionado).scalaY(1.03);
-        }else if(fator<this.Fator){
-            //System.out.println(this.Fator-fator);
+
+        }else if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )<
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
             poligonos.get(selecionado).scalaY(0.97);
+
         }
+        setPressed(e);
         this.Fator=fator;
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
     }
 
     public void scalaxy(MouseEvent e){
-        double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator>this.Fator){
-            //System.out.println(fator-this.Fator);
-            poligonos.get(selecionado).scalaXY(1.03);
-        }else if(fator<this.Fator){
-            //System.out.println(this.Fator-fator);
-            poligonos.get(selecionado).scalaXY(0.97);
+        double fator = distancia(this.Pressed,new Vertice(e.getX(),e.getY()));
+        if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )>
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+                poligonos.get(selecionado).scalaXY(1.03);
+
+        }else if((distancia(poligonos.get(selecionado).Central,new Vertice(e.getX(),e.getY())) )<
+                (distancia(poligonos.get(selecionado).Central,this.Pressed))){
+
+                poligonos.get(selecionado).scalaXY(0.97);
+
         }
+        setPressed(e);
         this.Fator=fator;
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
