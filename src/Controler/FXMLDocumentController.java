@@ -29,8 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+
+import static java.lang.Math.*;
 
 /**
  *
@@ -113,6 +113,7 @@ public class FXMLDocumentController implements Initializable {
     public void setUnpressed(MouseEvent e){
         this.Pressed.X=0;
         this.Pressed.Y=0;
+        this.Fator=0;
     }
 
     public void criaQuadrado(){
@@ -152,13 +153,13 @@ public class FXMLDocumentController implements Initializable {
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::scalay);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
     public void scalaX(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::scalax);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
 
 
@@ -166,39 +167,39 @@ public class FXMLDocumentController implements Initializable {
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::scalaxy);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoX(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::cisalhamentox);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoY(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::cisalhamentoy);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
     public void rotacao(){
         drawingArea.setOnMouseClicked(null);
         drawingArea.setOnMousePressed(this::setPressed);
         drawingArea.setOnMouseDragged(this::rotaciona);
-        drawingArea.setOnMousePressed(this::setUnpressed);
+        drawingArea.setOnMouseReleased(this::setUnpressed);
     }
     public void rotaciona(MouseEvent e){
+        System.out.println(this.Fator);
         Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
         double fator = calAngulo(centro,Pressed,new Vertice(e.getX(),e.getY()));
-        if(fator!=this.Fator){
-            //System.out.println(fator-this.Fator);
-            poligonos.get(selecionado).rotaciona(fator);
-            this.Fator=fator;
-            gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
-            drawall();
-        }
+        poligonos.get(selecionado).rotaciona(fator-this.Fator);
+        System.out.println(fator +" "+(fator-this.Fator));
+        this.Fator=fator;
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
 
     }
-    public double calAngulo(Vertice central,Vertice ini, Vertice fim){
+    public double calAngulo(Vertice central,Vertice Ini, Vertice fim){
+        Vertice ini=new Vertice(Ini.X,Ini.Y);
         ini.X=ini.X-central.X;
         ini.Y=ini.Y-central.Y;
         fim.X=fim.X-central.X;
@@ -208,7 +209,7 @@ public class FXMLDocumentController implements Initializable {
         double compIni = distancia(central,ini);
         double compFim = distancia(central,fim);
         double dividendo=(ini.X*fim.X)+(ini.Y*fim.Y);
-        return dividendo/(compIni*compFim);
+        return acos(dividendo/(compIni*compFim));
     }
     public void cisalhamentox(MouseEvent e){
         double fator = distancia(Pressed,new Vertice(e.getX(),e.getY()));
