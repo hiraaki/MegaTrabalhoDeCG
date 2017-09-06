@@ -121,9 +121,9 @@
                   </ImageView>
                </graphic></Button>
             <Button fx:id="Translada" layoutX="17.0" layoutY="325.0" mnemonicParsing="false" onAction="#Arrasta" text="Translada" />
-            <Button fx:id="ScalaXY" layoutX="110.0" layoutY="325.0" mnemonicParsing="false" onAction="#scalaXY" text="Scala XY" />
-            <Button fx:id="ScalaX" layoutX="18.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaX" text="Scala X" />
-            <Button fx:id="ScalaY" layoutX="110.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaY" text="Scala Y" />
+            <Button fx:id="ScalaXY" layoutX="110.0" layoutY="325.0" mnemonicParsing="false" onAction="#scalaXY" text="Escala XY" />
+            <Button fx:id="ScalaX" layoutX="18.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaX" text="Escala X" />
+            <Button fx:id="ScalaY" layoutX="110.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaY" text="Escala Y" />
             <Button fx:id="CisalhamentoX" layoutX="20.0" layoutY="394.0" mnemonicParsing="false" onAction="#cisalhamentoX" text="Cisalhamento X" />
             <Button fx:id="CisalhamentoY" layoutX="20.0" layoutY="426.0" mnemonicParsing="false" onAction="#cisalhamentoY" text="Cisalhamneto Y" />
             <Button fx:id="Rotacao" layoutX="20.0" layoutY="460.0" mnemonicParsing="false" onAction="#rotacao" text="Rotaçao" />
