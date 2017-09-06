@@ -8,6 +8,7 @@ import Models.*;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,20 +16,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.ColorPicker;
 
 import static java.lang.Math.*;
 
@@ -68,6 +70,9 @@ public class FXMLDocumentController implements Initializable {
     private Button ScalaY;
     @FXML
     private Button Rotacao;
+    @FXML
+    private ColorPicker Cor;
+
     public int selecionado;
     public int cliques;
     public ArrayList<Vertice> novoIrregular;
@@ -203,6 +208,17 @@ public class FXMLDocumentController implements Initializable {
         drawingArea.setOnMouseDragged(this::rotaciona);
         drawingArea.setOnMouseReleased(this::setUnpressed);
     }
+    @FXML
+    public void cor(ActionEvent e){
+        //ColorPicker colorPicker = new ColorPicker();
+        System.out.println(Cor.getValue());
+        poligonos.get(selecionado).face.Preenchimento=Cor.getValue();
+        System.out.println(poligonos.get(selecionado).face.Preenchimento);
+        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        drawall();
+        //selecionado=-1;
+    }
+
     public void rotaciona(MouseEvent e){
         System.out.println(this.Fator);
         Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
@@ -467,7 +483,7 @@ public class FXMLDocumentController implements Initializable {
         v.Y = e.getY();
         v2.X=v.X+100;
         v2.Y=v.Y;
-        poligonos.add( new Poligono(v,v2,4));
+        poligonos.add( new Poligono(v,v2,4,Cor.getValue()));
         this.draw(poligonos.get(poligonos.size()-1));
     }
     public void criaRegularTriangulo(MouseEvent e){
@@ -513,6 +529,24 @@ public class FXMLDocumentController implements Initializable {
         novoIrregular.clear();
     }
     public void draw(Poligono Novo){
+
+        Vertice maior=new Vertice(-1,-1);
+        Vertice menor=new Vertice(9999999,9999999);
+        for(Vertice v:Novo.Vertices){
+            if(v.X<menor.X)
+                menor.X=v.X;
+            if(v.Y<menor.Y)
+                menor.Y=v.Y;
+            if(v.X>maior.X)
+                maior.X=v.X;
+            if(v.Y>maior.Y)
+                maior.Y=v.Y;
+        }
+        gc.setStroke(Novo.face.Preenchimento);
+        preenche(Novo.Arestas,menor.Y,maior.Y,menor.X,menor.Y);
+
+
+        gc.setStroke(Novo.face.Contorno);
         for(int i=0;i<Novo.Vertices.size();i++){
             //System.out.println(Novo.Vertices.get(i).X+" "+Novo.Vertices.get(i).Y);
             if(i!=Novo.Vertices.size()-1){
@@ -520,6 +554,47 @@ public class FXMLDocumentController implements Initializable {
             }else{
                 gc.strokeLine(Novo.Vertices.get(i).X, Novo.Vertices.get(i).Y, Novo.Vertices.get(0).X,Novo.Vertices.get(0).Y);
             }
+
+        }
+
+    }
+
+    public void preenche(ArrayList<Aresta> aresta,double ymin,double ymax,double xmin,double xmax){
+        ArrayList<Aresta> intersectionPoints = new ArrayList<>();
+        Vertice Intersec=new Vertice();
+        for(double i=ymin;i<ymax;i++){
+            Double s=0.0;
+            Double t=0.0;
+            for(Aresta a: aresta){
+                double det;
+                det = (a.Fim.Y - a.Inicio.Y) * (xmax - i);
+                s = ((a.Fim.X - a.Inicio.X) * (a.Inicio.Y - i) - (a.Fim.Y - a.Inicio.Y) * (a.Inicio.X - xmin))/ det ;
+                t = ((xmax - xmin) * (a.Inicio.Y - i) - (i - i) * (a.Inicio.X - xmin))/ det ;
+                if(intersec2d(new Vertice(xmin,i),new Vertice(xmax,i),a.Inicio,a.Fim,s,t)!=0){
+                    System.out.println(intersec2d(new Vertice(xmin,i),new Vertice(xmax,i),a.Inicio,a.Fim,s,t));
+                    System.out.println(s+" "+t);
+
+                    //Intersec=PontoI(new Aresta(new Vertice(xmin,i),new Vertice(xmax,i)),a);
+                    Intersec=new Vertice((xmin+((xmax-xmin)*s)),(i+((i-i)*s)));
+                    if(((Intersec.X!=a.Inicio.X)&&(Intersec.Y!=a.Inicio.Y))||((Intersec.X!=a.Fim.X)&&(Intersec.Y!=a.Fim.Y))){
+                        if(intersectionPoints.size()==0) {
+                            intersectionPoints.add(new Aresta());
+                            intersectionPoints.get(intersectionPoints.size()-1).Inicio=Intersec;
+                            System.out.println("dsa");
+                        }else if(intersectionPoints.get(intersectionPoints.size()-1).Inicio!=null){
+                            intersectionPoints.get(intersectionPoints.size()-1).Fim=Intersec;
+                            System.out.println("dsadsadsa");
+                        }else if(intersectionPoints.get(intersectionPoints.size()-1).Fim!=null){
+                            intersectionPoints.add(new Aresta());
+                            System.out.println("sdadsadsadsadsa");
+                            intersectionPoints.get(intersectionPoints.size()-1).Inicio=Intersec;
+                        }
+                    }
+                }
+            }
+        }
+        for(Aresta a: intersectionPoints){
+            gc.strokeLine(a.Inicio.X,a.Inicio.Y,a.Fim.X,a.Fim.Y);
         }
 
     }
@@ -585,5 +660,30 @@ public class FXMLDocumentController implements Initializable {
             gc.strokeLine(novoIrregular.get(i).X, novoIrregular.get(i).Y, novoIrregular.get(i+1).X,novoIrregular.get(i+1).Y);
         }
     }
+    public int intersec2d(Vertice iniScanL, Vertice fimScanL, Vertice iniAres, Vertice fimAres, Double s, Double t){
+        double det;
 
- }
+        det = (fimAres.X - iniAres.X) * (fimScanL.Y - iniScanL.Y)  -  (fimAres.Y - iniAres.Y) * (fimScanL.X - iniScanL.Y);
+
+        if (det == 0.0)
+            return 0 ; // não há intersecção
+
+        s = ((fimAres.X - iniAres.X) * (iniAres.Y - iniScanL.Y) - (fimAres.Y - iniAres.Y) * (iniAres.X - iniScanL.X))/ det ;
+        t = ((fimScanL.X - iniScanL.X) * (iniAres.Y - iniScanL.Y) - (fimScanL.Y - iniScanL.Y) * (iniAres.X - iniScanL.X))/ det ;
+
+        return 1; // há intersecção
+    }
+    public Vertice PontoI(Aresta scanL,Aresta arestaPol){
+        Double s = new Double(0.0);
+        Double t = new Double(0.0);
+        int intercede=intersec2d(scanL.Inicio,scanL.Fim,arestaPol.Inicio,arestaPol.Fim,s,t);
+        if(intercede==0){
+            return null;
+        }else{
+            return (new Vertice((scanL.Inicio.X+((scanL.Fim.X-scanL.Inicio.X)*s)),(scanL.Inicio.Y+((scanL.Fim.Y-scanL.Inicio.Y)*s))));
+        }
+
+    }
+
+
+}

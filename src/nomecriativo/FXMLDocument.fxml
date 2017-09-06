@@ -5,6 +5,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
+<BorderPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXMLDocumentController">
     <center>
         <ScrollPane>
             <content>
@@ -125,7 +126,8 @@
             <Button fx:id="ScalaY" layoutX="110.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaY" text="Scala Y" />
             <Button fx:id="CisalhamentoX" layoutX="20.0" layoutY="394.0" mnemonicParsing="false" onAction="#cisalhamentoX" text="Cisalhamento X" />
             <Button fx:id="CisalhamentoY" layoutX="20.0" layoutY="426.0" mnemonicParsing="false" onAction="#cisalhamentoY" text="Cisalhamneto Y" />
-            <Button layoutX="20.0" layoutY="460.0" mnemonicParsing="false" text="Rotaçao" fx:id="Rotacao" onAction="#rotacao" />
+            <Button fx:id="Rotacao" layoutX="20.0" layoutY="460.0" mnemonicParsing="false" onAction="#rotacao" text="Rotaçao" />
+            <ColorPicker fx:id="Cor" layoutX="14.0" layoutY="494.0" onAction="#cor" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />

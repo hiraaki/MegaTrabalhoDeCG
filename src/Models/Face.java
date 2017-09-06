@@ -5,10 +5,21 @@
  */
 package Models;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author mhi
  */
 public class Face {
-    Aresta aresta1;
+    public Color Preenchimento;
+    public Color Contorno;
+    public Face(){
+        this.Contorno=Color.BLACK;
+        this.Preenchimento=null;
+    }
+    public Face(Color contorno,Color preenchimento){
+        this.Contorno=contorno;
+        this.Preenchimento=preenchimento;
+    }
 }
