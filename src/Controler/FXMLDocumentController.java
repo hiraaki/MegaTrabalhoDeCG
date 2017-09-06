@@ -9,6 +9,7 @@ import Models.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -213,7 +214,7 @@ public class FXMLDocumentController implements Initializable {
         //ColorPicker colorPicker = new ColorPicker();
         System.out.println(Cor.getValue());
         poligonos.get(selecionado).face.Preenchimento=Cor.getValue();
-        System.out.println(poligonos.get(selecionado).face.Preenchimento);
+        //System.out.println(poligonos.get(selecionado).face.Preenchimento);
         gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
         drawall();
         //selecionado=-1;
@@ -543,8 +544,7 @@ public class FXMLDocumentController implements Initializable {
                 maior.Y=v.Y;
         }
         gc.setStroke(Novo.face.Preenchimento);
-        preenche(Novo.Arestas,menor.Y,maior.Y,menor.X,menor.Y);
-
+        fill(Novo.Vertices);
 
         gc.setStroke(Novo.face.Contorno);
         for(int i=0;i<Novo.Vertices.size();i++){
@@ -559,44 +559,77 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    public void preenche(ArrayList<Aresta> aresta,double ymin,double ymax,double xmin,double xmax){
-        ArrayList<Aresta> intersectionPoints = new ArrayList<>();
-        Vertice Intersec=new Vertice();
-        for(double i=ymin;i<ymax;i++){
-            Double s=0.0;
-            Double t=0.0;
-            for(Aresta a: aresta){
-                double det;
-                det = (a.Fim.Y - a.Inicio.Y) * (xmax - i);
-                s = ((a.Fim.X - a.Inicio.X) * (a.Inicio.Y - i) - (a.Fim.Y - a.Inicio.Y) * (a.Inicio.X - xmin))/ det ;
-                t = ((xmax - xmin) * (a.Inicio.Y - i) - (i - i) * (a.Inicio.X - xmin))/ det ;
-                if(intersec2d(new Vertice(xmin,i),new Vertice(xmax,i),a.Inicio,a.Fim,s,t)!=0){
-                    System.out.println(intersec2d(new Vertice(xmin,i),new Vertice(xmax,i),a.Inicio,a.Fim,s,t));
-                    System.out.println(s+" "+t);
+    private void fill(ArrayList<Vertice> poli){
+        double ymin=99999999,ymax=-999999;
+        for(Vertice v: poli){
+            if(v.Y>ymax)
+                ymax=v.Y;
+            if(v.Y<ymin)
+                ymin=v.Y;
+        }
+        System.out.println(ymin+" "+ymax);
 
-                    //Intersec=PontoI(new Aresta(new Vertice(xmin,i),new Vertice(xmax,i)),a);
-                    Intersec=new Vertice((xmin+((xmax-xmin)*s)),(i+((i-i)*s)));
-                    if(((Intersec.X!=a.Inicio.X)&&(Intersec.Y!=a.Inicio.Y))||((Intersec.X!=a.Fim.X)&&(Intersec.Y!=a.Fim.Y))){
-                        if(intersectionPoints.size()==0) {
-                            intersectionPoints.add(new Aresta());
-                            intersectionPoints.get(intersectionPoints.size()-1).Inicio=Intersec;
-                            System.out.println("dsa");
-                        }else if(intersectionPoints.get(inte rsectionPoints.size()-1).Inicio!=null){
-                            intersectionPoints.get(intersectionPoints.size()-1).Fim=Intersec;
-                            System.out.println("dsadsadsa");
-                        }else if(intersectionPoints.get(intersectionPoints.size()-1).Fim!=null){
-                            intersectionPoints.add(new Aresta());
-                            System.out.println("sdadsadsadsadsa");
-                            intersectionPoints.get(intersectionPoints.size()-1).Inicio=Intersec;
-                        }
-                    }
+        ArrayList<ArrayList<Models.Vertice>> scanlines = new ArrayList<>();
+
+        for (double i = ymin; i <= ymax; i++ ){
+            ArrayList<Models.Vertice> intersectionPoints = new ArrayList<>();
+            for (int j = 0; j < poli.size() - 1; j++){
+                double x1, x2, y1, y2;
+                double deltax, deltay, x;
+                x1 = poli.get(j).X;
+                y1 = poli.get(j).Y;
+                x2 = poli.get(j + 1).X;
+                y2 = poli.get(j + 1).Y;
+
+                deltax = x2 - x1;
+                deltay = y2 - y1;
+
+                double roundedX;
+                x = x1 + deltax / deltay * (i - y1);
+                roundedX = Math.round(x);
+                if ((y1 <= i && y2 > i) || (y2 <= i && y1 > i)) {
+                    intersectionPoints.add(new Vertice(roundedX,i));
+                    System.out.println(roundedX+" "+i);
                 }
             }
-        }
-        for(Aresta a: intersectionPoints){
-            gc.strokeLine(a.Inicio.X,a.Inicio.Y,a.Fim.X,a.Fim.Y);
-        }
+            //for the last interval
+            double x1, x2, y1, y2;
+            x1 = poli.get(poli.size() - 1).X;
+            y1 = poli.get(poli.size() - 1).Y;
+            x2 = poli.get(0).X;
+            y2 = poli.get(0).Y;
 
+            double deltax, deltay, x;
+            deltax = x2 - x1;
+            deltay = y2 - y1;
+            x = x1 + deltax / deltay * (i - y1);
+            double roundedX = Math.round(x);
+
+            if ((y1 <= i && y2 > i) || (y2 <= i && y1 > i)) {
+                intersectionPoints.add(new Vertice(roundedX, i));
+            }
+
+            Collections.sort(intersectionPoints, new Comparator<Models.Vertice>() {
+                @Override
+                public int compare(final Vertice A, final Vertice B) {
+                    return (int) (A.X - B.X);
+                }
+            });
+            scanlines.add(intersectionPoints);
+        }
+        Vertice p = null;
+        for(ArrayList<Vertice> list : scanlines){
+            for (Vertice ponto:list){
+                if (p == null){
+                    p = ponto;
+                    continue;
+                }
+                System.out.println("dsadsadsa");
+                System.out.println(p.X+" "+p.Y+" "+ponto.X+" "+ponto.Y);
+                gc.strokeLine(p.X, p.Y, ponto.X, ponto.Y);
+                p = null;
+            }
+        }
     }
 
     public void novo(){

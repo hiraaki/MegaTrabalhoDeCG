@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
  *
  * @author mhi
  */
-public class Face {
+public class Face implements java.io.Serializable {
     public Color Preenchimento;
     public Color Contorno;
     public Face(){
