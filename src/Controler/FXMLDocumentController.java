@@ -581,7 +581,7 @@ public class FXMLDocumentController implements Initializable {
                             intersectionPoints.add(new Aresta());
                             intersectionPoints.get(intersectionPoints.size()-1).Inicio=Intersec;
                             System.out.println("dsa");
-                        }else if(intersectionPoints.get(intersectionPoints.size()-1).Inicio!=null){
+                        }else if(intersectionPoints.get(inte rsectionPoints.size()-1).Inicio!=null){
                             intersectionPoints.get(intersectionPoints.size()-1).Fim=Intersec;
                             System.out.println("dsadsadsa");
                         }else if(intersectionPoints.get(intersectionPoints.size()-1).Fim!=null){
