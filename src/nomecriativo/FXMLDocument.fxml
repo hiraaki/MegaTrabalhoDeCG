@@ -4,6 +4,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Menu?>
@@ -41,31 +42,16 @@
         </MenuBar>
     </top>
     <left>
-        <Pane prefHeight="602.0" prefWidth="262.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
+        <Pane prefHeight="602.0" prefWidth="188.0" style="-fx-background-color: #dddddd;" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="Quadrado" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaQuadrado" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/contour-carre_318-32528.jpg" />
-                     </image></ImageView>
-               </graphic></Button>
-                <Button layoutX="107.0" layoutY="14.0" mnemonicParsing="false" onAction="#criaTriangulo" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/triangle-forme-geometrique_318-30984.jpg" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-                <Button fx:id="Irregular" layoutX="105.0" layoutY="160.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="64.0" prefWidth="68.0">
+                <Button fx:id="Irregular" layoutX="108.0" layoutY="12.0" mnemonicParsing="false" onAction="#criaIrregular" prefHeight="64.0" prefWidth="68.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/export.png" />
                      </image></ImageView>
                </graphic></Button>
-                <Button layoutX="105.0" layoutY="245.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="36.0" prefWidth="114.0" text="N lados">
+                <Button layoutX="106.0" layoutY="77.0" mnemonicParsing="false" onAction="#criaNlados" prefHeight="55.0" prefWidth="68.0" text="N lados">
                <graphic>
                   <ChoiceBox fx:id="N" prefHeight="26.0" prefWidth="1.0">
                       <items>
@@ -88,23 +74,7 @@
                       </items>
                   </ChoiceBox>
                </graphic></Button>
-                <Button layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#criaPentagono" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/forma-de-contorno-pentagono_318-50045.jpg" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-                <Button layoutX="105.0" layoutY="90.0" mnemonicParsing="false" onAction="#criaHexagono" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/hexagone-forme-geometrique-apercu_318-48664.jpg" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button fx:id="Seleciona" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="60.0" prefWidth="69.0">
+            <Button fx:id="Seleciona" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="60.0" prefWidth="69.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -112,7 +82,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="Excluir" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#Exclui" prefHeight="50.0" prefWidth="50.0">
+            <Button fx:id="Excluir" layoutX="17.0" layoutY="76.0" mnemonicParsing="false" onAction="#Exclui" prefHeight="50.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -120,14 +90,14 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="Translada" layoutX="17.0" layoutY="325.0" mnemonicParsing="false" onAction="#Arrasta" text="Translada" />
-            <Button fx:id="ScalaXY" layoutX="110.0" layoutY="325.0" mnemonicParsing="false" onAction="#scalaXY" text="Escala XY" />
-            <Button fx:id="ScalaX" layoutX="18.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaX" text="Escala X" />
-            <Button fx:id="ScalaY" layoutX="110.0" layoutY="361.0" mnemonicParsing="false" onAction="#scalaY" text="Escala Y" />
-            <Button fx:id="CisalhamentoX" layoutX="20.0" layoutY="394.0" mnemonicParsing="false" onAction="#cisalhamentoX" text="Cisalhamento X" />
-            <Button fx:id="CisalhamentoY" layoutX="20.0" layoutY="426.0" mnemonicParsing="false" onAction="#cisalhamentoY" text="Cisalhamneto Y" />
-            <Button fx:id="Rotacao" layoutX="20.0" layoutY="460.0" mnemonicParsing="false" onAction="#rotacao" text="Rotaçao" />
+            <Button fx:id="Translada" layoutX="11.0" layoutY="266.0" mnemonicParsing="false" onAction="#Arrasta" prefHeight="25.0" prefWidth="170.0" text="Translada" />
+            <Button fx:id="ScalaXY" layoutX="12.0" layoutY="241.0" mnemonicParsing="false" onAction="#scalaXY" prefHeight="25.0" prefWidth="170.0" text="Escala" />
+            <Button fx:id="CisalhamentoX" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#cisalhamentoX" prefHeight="25.0" prefWidth="171.0" text="Cisalhamento" />
+            <Button fx:id="Rotacao" layoutX="12.0" layoutY="314.0" mnemonicParsing="false" onAction="#rotacao" prefHeight="25.0" prefWidth="170.0" text="Rotaçao" />
             <ColorPicker fx:id="Cor" layoutX="14.0" layoutY="494.0" onAction="#cor" />
+            <CheckBox layoutX="20.0" layoutY="162.0" mnemonicParsing="false" text="X" />
+            <CheckBox layoutX="83.0" layoutY="162.0" mnemonicParsing="false" text="Y" />
+            <CheckBox layoutX="154.0" layoutY="162.0" mnemonicParsing="false" text="Z" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />
