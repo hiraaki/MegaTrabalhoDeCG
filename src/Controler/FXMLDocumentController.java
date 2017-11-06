@@ -128,35 +128,12 @@ public class FXMLDocumentController implements Initializable {
         this.Fator=0;
     }
 
-    public void criaQuadrado(){
-        drawingArea1.setOnMouseDragged(null);
-        drawingArea1.setOnMouseClicked(this::criaRegularQuadrado);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
-    }
-    public void criaTriangulo(){
-        drawingArea1.setOnMouseDragged(null);
-        drawingArea1.setOnMouseClicked(this::criaRegularTriangulo);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
-    }
-    public void criaPentagono(){
-        drawingArea1.setOnMouseDragged(null);
-        drawingArea1.setOnMouseClicked(this::criaRegularPentagono);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
-    }
-    public void criaHexagono(){
-        drawingArea1.setOnMouseDragged(null);
-        drawingArea1.setOnMouseClicked(this::criaRegularHexagono);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
-    }
+
     public void criaNlados(){
-        drawingArea1.setOnMouseDragged(null);
+        drawingArea2.setOnMouseClicked(this::criaRegularNlados);
+        drawingArea3.setOnMouseClicked(this::criaRegularNlados);
         drawingArea1.setOnMouseClicked(this::criaRegularNlados);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
+
     }
     public void criaIrregular(){
         drawingArea1.setOnMouseDragged(null);
@@ -214,6 +191,22 @@ public class FXMLDocumentController implements Initializable {
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::rotaciona);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
+    }
+    public void unsetclick(){
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea2.setOnMouseClicked(null);
+        drawingArea3.setOnMouseClicked(null);
+    }
+    public void unsetPresed(){
+        drawingArea1.setOnMousePressed(null);
+        drawingArea2.setOnMousePressed(null);
+        drawingArea3.setOnMousePressed(null);
+    }
+    public void unsetReleased(){
+        drawingArea1.setOnMouseReleased(null);
+        drawingArea2.setOnMouseReleased(null);
+        drawingArea3.setOnMouseReleased(null);
+
     }
     @FXML
     public void cor(ActionEvent e){
@@ -534,6 +527,7 @@ public class FXMLDocumentController implements Initializable {
         poligonos.add( new Poligono(v,v2,lados));
         this.draw(poligonos.get(poligonos.size()-1));
         novoIrregular.clear();
+        unsetclick();
     }
     public void draw(Poligono Novo){
 
