@@ -72,10 +72,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button ScalaXY;
     @FXML
-    private Button ScalaX;
-    @FXML
-    private Button ScalaY;
-    @FXML
     private Button Rotacao;
     @FXML
     private ColorPicker Cor;
@@ -130,9 +126,9 @@ public class FXMLDocumentController implements Initializable {
 
 
     public void criaNlados(){
+        drawingArea1.setOnMouseClicked(this::criaRegularNlados);
         drawingArea2.setOnMouseClicked(this::criaRegularNlados);
         drawingArea3.setOnMouseClicked(this::criaRegularNlados);
-        drawingArea1.setOnMouseClicked(this::criaRegularNlados);
 
     }
     public void criaIrregular(){
@@ -148,20 +144,19 @@ public class FXMLDocumentController implements Initializable {
         drawingArea1.setOnMouseReleased(null);
     }
     public void Arrasta(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMouseDragged(this::Translada);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
+
     }
 
     public void scalaY(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::scalay);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void scalaX(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::scalax);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
@@ -169,40 +164,43 @@ public class FXMLDocumentController implements Initializable {
 
 
     public void scalaXY(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::scalaxy);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoX(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::cisalhamentox);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoY(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::cisalhamentoy);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void rotacao(){
-        drawingArea1.setOnMouseClicked(null);
+
         drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::rotaciona);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void unsetclick(){
+
         drawingArea1.setOnMouseClicked(null);
         drawingArea2.setOnMouseClicked(null);
         drawingArea3.setOnMouseClicked(null);
     }
     public void unsetPresed(){
+
         drawingArea1.setOnMousePressed(null);
         drawingArea2.setOnMousePressed(null);
         drawingArea3.setOnMousePressed(null);
     }
     public void unsetReleased(){
+
         drawingArea1.setOnMouseReleased(null);
         drawingArea2.setOnMouseReleased(null);
         drawingArea3.setOnMouseReleased(null);
@@ -334,6 +332,7 @@ public class FXMLDocumentController implements Initializable {
                     gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                     drawall();
         }
+        unsetclick();
     }
 
     public void Exclui(){

@@ -27,8 +27,6 @@ public class Poligono3D {
 
         }
     }
-    public void rotacionaX(){
 
-    }
 
 }
