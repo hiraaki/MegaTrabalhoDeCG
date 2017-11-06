@@ -43,7 +43,13 @@ public class FXMLDocumentController implements Initializable {
 
     private ArrayList<Poligono> poligonos;
     @FXML
-    private Canvas drawingArea;
+    private Canvas drawingArea1;
+    @FXML
+    private Canvas drawingArea2;
+    @FXML
+    private Canvas drawingArea3;
+    @FXML
+    private Canvas drawingArea4;
     public Aresta raio;
     @FXML
     private Button Quadrado;
@@ -94,7 +100,7 @@ public class FXMLDocumentController implements Initializable {
         this.Pressed=new Vertice();
         this.Distancia=0.0;
         this.Fator=0.0;
-       /* drawingArea.getParent().setOnKeyPressed((KeyEvent e) -> {
+       /* drawingArea1.getParent().setOnKeyPressed((KeyEvent e) -> {
             System.out.println("uheuheuhe");
         });*/
         N.getSelectionModel().getSelectedItem(); // pegar o valor selecionado
@@ -107,7 +113,7 @@ public class FXMLDocumentController implements Initializable {
         cliques = 0;
 
 
-        gc = drawingArea.getGraphicsContext2D();
+        gc = drawingArea1.getGraphicsContext2D();
 
         gc.setStroke(Color.BLACK);
 
@@ -123,91 +129,91 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaQuadrado(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::criaRegularQuadrado);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::criaRegularQuadrado);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void criaTriangulo(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::criaRegularTriangulo);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::criaRegularTriangulo);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void criaPentagono(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::criaRegularPentagono);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::criaRegularPentagono);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void criaHexagono(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::criaRegularHexagono);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::criaRegularHexagono);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void criaNlados(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::criaRegularNlados);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::criaRegularNlados);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void criaIrregular(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::Irregulares);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::Irregulares);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void seleciona(){
-        drawingArea.setOnMouseDragged(null);
-        drawingArea.setOnMouseClicked(this::selecionar);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea1.setOnMouseClicked(this::selecionar);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
     public void Arrasta(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMouseDragged(this::Translada);
-        drawingArea.setOnMousePressed(null);
-        drawingArea.setOnMouseReleased(null);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMouseDragged(this::Translada);
+        drawingArea1.setOnMousePressed(null);
+        drawingArea1.setOnMouseReleased(null);
     }
 
     public void scalaY(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::scalay);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::scalay);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void scalaX(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::scalax);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::scalax);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
 
 
     public void scalaXY(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::scalaxy);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::scalaxy);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoX(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::cisalhamentox);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::cisalhamentox);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamentoY(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::cisalhamentoy);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::cisalhamentoy);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void rotacao(){
-        drawingArea.setOnMouseClicked(null);
-        drawingArea.setOnMousePressed(this::setPressed);
-        drawingArea.setOnMouseDragged(this::rotaciona);
-        drawingArea.setOnMouseReleased(this::setUnpressed);
+        drawingArea1.setOnMouseClicked(null);
+        drawingArea1.setOnMousePressed(this::setPressed);
+        drawingArea1.setOnMouseDragged(this::rotaciona);
+        drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     @FXML
     public void cor(ActionEvent e){
@@ -215,7 +221,7 @@ public class FXMLDocumentController implements Initializable {
         System.out.println(Cor.getValue());
         poligonos.get(selecionado).face.Preenchimento=Cor.getValue();
         //System.out.println(poligonos.get(selecionado).face.Preenchimento);
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
         //selecionado=-1;
     }
@@ -227,7 +233,7 @@ public class FXMLDocumentController implements Initializable {
         poligonos.get(selecionado).rotaciona(this.Fator-fator);
         System.out.println(fator +" "+(fator-this.Fator)+" "+toDegrees(fator));
         this.Fator=fator;
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
 
     }
@@ -246,7 +252,7 @@ public class FXMLDocumentController implements Initializable {
 
         }
         setPressed(e);
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
     }
     public void cisalhamentoy(MouseEvent e){
@@ -264,7 +270,7 @@ public class FXMLDocumentController implements Initializable {
         }
         setPressed(e);
         this.Fator=fator;
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
     }
     public void scalax(MouseEvent e){
@@ -282,7 +288,7 @@ public class FXMLDocumentController implements Initializable {
         }
         setPressed(e);
         this.Fator=fator;
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
     }
 
@@ -301,7 +307,7 @@ public class FXMLDocumentController implements Initializable {
         }
         setPressed(e);
         this.Fator=fator;
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
     }
 
@@ -320,7 +326,7 @@ public class FXMLDocumentController implements Initializable {
         }
         setPressed(e);
         this.Fator=fator;
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         drawall();
         //poligonos.get(selecionado).printVertices();
     }
@@ -332,7 +338,7 @@ public class FXMLDocumentController implements Initializable {
             if(mouseEvent.getX()!=poligonos.get(selecionado).Central.X)
                 if(mouseEvent.getY()!=poligonos.get(selecionado).Central.Y)
                     poligonos.get(selecionado).translada(v);
-                    gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+                    gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                     drawall();
         }
     }
@@ -341,7 +347,7 @@ public class FXMLDocumentController implements Initializable {
         if(selecionado!=-1) {
             poligonos.remove(selecionado);
             selecionado = -1;
-            gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+            gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
             for (Poligono p : poligonos) {
                 draw(p);
             }
@@ -355,7 +361,7 @@ public class FXMLDocumentController implements Initializable {
         FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
         chooser.getExtensionFilters().add(extFiler);
         chooser.setTitle("Salvar Cena");
-        String savef = chooser.showSaveDialog(drawingArea.getScene().getWindow()).toString();
+        String savef = chooser.showSaveDialog(drawingArea1.getScene().getWindow()).toString();
         save(savef);
 
     }
@@ -376,7 +382,7 @@ public class FXMLDocumentController implements Initializable {
         FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
         chooser.getExtensionFilters().add(extFiler);
         chooser.setTitle("Abrir Cena");
-        String openf = chooser.showOpenDialog(drawingArea.getScene().getWindow()).toString();
+        String openf = chooser.showOpenDialog(drawingArea1.getScene().getWindow()).toString();
         load(openf);
     }
 
@@ -389,7 +395,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Problem serializing: " + e);
         }
         System.out.println("este é o arquivo");
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         this.drawall();
         //return null;
     }
@@ -417,7 +423,7 @@ public class FXMLDocumentController implements Initializable {
         if(selecionado==-1){
             System.out.println("nenhum pol selecionado");
         }
-        gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+        gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
         for(int i=0;i<poligonos.size();i++){
             if(i==selecionado){
                 gc.setStroke(Color.RED);
@@ -633,7 +639,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void novo(){
-            this.gc.clearRect(0, 0, drawingArea.getWidth(), drawingArea.getHeight());
+            this.gc.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
             cliques = 0;
             poligonos.clear();
             selecionado=-1;

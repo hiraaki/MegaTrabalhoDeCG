@@ -35,10 +35,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Canvas fx:id="drawingArea" height="300.0" width="327.0" />
-                  <Canvas height="301.0" width="325.0" GridPane.columnIndex="1" />
-                  <Canvas height="297.0" width="327.0" GridPane.rowIndex="1" />
-                  <Canvas height="297.0" width="326.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Canvas fx:id="drawingArea1" height="300.0" width="327.0" />
+                  <Canvas fx:id="drawingArea2" height="301.0" width="325.0" GridPane.columnIndex="1" />
+                  <Canvas fx:id="drawingArea3" height="297.0" width="327.0" GridPane.rowIndex="1" />
+                  <Canvas fx:id="drawingArea4" height="297.0" width="326.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </content>
