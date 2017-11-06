@@ -16,10 +16,6 @@ public class Poligono3D {
             Vertices.add(new Vertice3D(v.X,v.Y,v.Z));
         }
         this.setArestas();
-        System.out.println("Area: "+getArea());
-        calcCentroid();
-        System.out.println("Centroid :"+Central.X+","+Central.Y);
-        //this.printVertices();
     }
     public void setArestas(){
         for (int i = 0; i < this.Vertices.size(); i++) {
@@ -31,32 +27,5 @@ public class Poligono3D {
 
         }
     }
-    public double getArea(){
-        double area=0;
-        double soma=0;
-        Aresta3D a= new Aresta3D();
-        for (int i = 0; i < this.Arestas.size(); i++) {
-            a=this.Arestas.get(i);
-            soma+=(a.Inicio.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y);
-        }
-        area=soma/2;
-        return area;
-    }
-    public void calcCentroid(){
-        double soma=0;
-        double area = getArea();
-        Aresta3D a= new Aresta3D();
-        for (int i = 0; i < this.Arestas.size(); i++) {
-            a=this.Arestas.get(i);
-            soma+=(a.Inicio.X+a.Fim.X)*((a.Inicio.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y));
-        }
-        this.Central.X=soma/(6*area);
-        soma=0;
-        for (int i = 0; i < this.Arestas.size(); i++) {
-            a=this.Arestas.get(i);
-            soma+=(a.Inicio.Y+a.Fim.Y)*((a.Inicio.X*a.Fim.Y)-(a.Fim.X*a.Inicio.Y));
-        }
-        this.Central.Y=soma/(6*area);
 
-    }
 }
