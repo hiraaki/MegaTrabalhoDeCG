@@ -530,20 +530,20 @@ public class FXMLDocumentController implements Initializable {
     }
     public void draw(Poligono Novo){
 
-        Vertice maior=new Vertice(-1,-1);
-        Vertice menor=new Vertice(9999999,9999999);
-        for(Vertice v:Novo.Vertices){
-            if(v.X<menor.X)
-                menor.X=v.X;
-            if(v.Y<menor.Y)
-                menor.Y=v.Y;
-            if(v.X>maior.X)
-                maior.X=v.X;
-            if(v.Y>maior.Y)
-                maior.Y=v.Y;
-        }
-        gc.setStroke(Novo.face.Preenchimento);
-        fill(Novo.Vertices);
+//        Vertice maior=new Vertice(-1,-1);
+//        Vertice menor=new Vertice(9999999,9999999);
+//        for(Vertice v:Novo.Vertices){
+//            if(v.X<menor.X)
+//                menor.X=v.X;
+//            if(v.Y<menor.Y)
+//                menor.Y=v.Y;
+//            if(v.X>maior.X)
+//                maior.X=v.X;
+//            if(v.Y>maior.Y)
+//                maior.Y=v.Y;
+//        }
+        //gc.setStroke(Novo.face.Preenchimento);
+        //fill(Novo.Vertices);
 
         gc.setStroke(Novo.face.Contorno);
         for(int i=0;i<Novo.Vertices.size();i++){
