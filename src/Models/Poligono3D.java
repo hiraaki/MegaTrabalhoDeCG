@@ -14,6 +14,9 @@ public class Poligono3D {
         this.Vertices=new ArrayList<Vertice3D>();
         this.Arestas=new ArrayList<Aresta3D>();
     }
+    public Poligono3D(){
+
+    }
     public Poligono3D(ArrayList<Vertice3D> vertices){
         this.Central = new Vertice3D();
         this.Vertices = new ArrayList();
@@ -68,7 +71,6 @@ public class Poligono3D {
     public void drawXY(GraphicsContext graphicsXY){
         graphicsXY.setStroke(Color.BLACK);
         for(int i=0;i<this.Vertices.size();i++){
-            //System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
             if(i!=this.Vertices.size()-1){
                 graphicsXY.strokeLine(this.Vertices.get(i).X, this.Vertices.get(i).Y, this.Vertices.get(i+1).X,this.Vertices.get(i+1).Y);
             }else{
@@ -80,7 +82,6 @@ public class Poligono3D {
     public void drawZY(GraphicsContext graphicsXY){
         graphicsXY.setStroke(Color.BLACK);
         for(int i=0;i<this.Vertices.size();i++){
-            //System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
             if(i!=this.Vertices.size()-1){
                 graphicsXY.strokeLine(this.Vertices.get(i).Z, this.Vertices.get(i).Y, this.Vertices.get(i+1).Z,this.Vertices.get(i+1).Y);
             }else{
@@ -92,7 +93,6 @@ public class Poligono3D {
     public void drawXZ(GraphicsContext graphicsXY){
         graphicsXY.setStroke(Color.BLACK);
         for(int i=0;i<this.Vertices.size();i++){
-            //System.out.println(this.Vertices.get(i).X+" "+this.Vertices.get(i).Y);
             if(i!=this.Vertices.size()-1){
                 graphicsXY.strokeLine(this.Vertices.get(i).X, this.Vertices.get(i).Z, this.Vertices.get(i+1).X,this.Vertices.get(i+1).Z);
             }else{
