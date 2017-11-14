@@ -48,10 +48,8 @@ public class FXMLDocumentController implements Initializable {
     private Canvas drawingArea2;
     @FXML
     private Canvas drawingArea3;
-
     @FXML
     private Canvas drawingArea4;
-
     @FXML
     private Button Seleciona;
     @FXML
@@ -74,6 +72,8 @@ public class FXMLDocumentController implements Initializable {
     private Button Rotacao;
     @FXML
     private ColorPicker Cor;
+    @FXML
+    private Button Nlados;
 
     public Aresta raio;
     private ArrayList<Poligono3D> poligonos;
@@ -141,6 +141,7 @@ public class FXMLDocumentController implements Initializable {
         drawingArea3.setOnMouseClicked(this::criaRegularZY);
         //virado para cima
         drawingArea2.setOnMouseClicked(this::criaRegularXZ);
+        System.out.println("desenha1");
 
     }
     public void criaIrregular(){
@@ -173,12 +174,6 @@ public class FXMLDocumentController implements Initializable {
         //drawingArea1.setOnMouseDragged(this::cisalhamentox);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
-//    public void cisalhamentoY(){
-//
-//        drawingArea1.setOnMousePressed(this::setPressed);
-//        //drawingArea1.setOnMouseDragged(this::cisalhamentoy);
-//        drawingArea1.setOnMouseReleased(this::setUnpressed);
-//    }
     public void rotacao(){
 
         drawingArea1.setOnMousePressed(this::setPressed);
@@ -206,27 +201,38 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaRegularXY(MouseEvent click){
+        System.out.println("desenha2");
         Vertice3D v=new Vertice3D();
-        if(click.getSource()==gc1){
+        if(click.getSource()==drawingArea1){
             v.X=click.getX();
             v.Y=click.getY();
-            this.poligonos.add(new Poligono3D());
+            this.poligonos.add(new Poligono3D(v,100,N.getValue(),1));
+            this.drawPoligonos();
         }
     }
     public void criaRegularZY(MouseEvent click){
         Vertice3D v=new Vertice3D();
-        if(click.getSource()==gc2){
+        if(click.getSource()==drawingArea2){
             v.Z=click.getX();
             v.Y=click.getY();
-            this.poligonos.add(new Poligono3D());
+            this.poligonos.add(new Poligono3D(v,100,N.getValue(),2));
         }
     }
     public void criaRegularXZ(MouseEvent click){
         Vertice3D v=new Vertice3D();
-        if(click.getSource()==gc3){
+        if(click.getSource()==drawingArea3){
             v.X=click.getX();
             v.Z=click.getY();
-            this.poligonos.add(new Poligono3D());
+            this.poligonos.add(new Poligono3D(v,100,N.getValue(),3));
+            drawPoligonos();
+        }
+    }
+    public void drawPoligonos(){
+        System.out.println("desenha4");
+        for (Poligono3D pol:poligonos) {
+            pol.drawXY(gc1);
+            pol.drawZY(gc2);
+            pol.drawXZ(gc3);
         }
     }
 
@@ -499,47 +505,6 @@ public class FXMLDocumentController implements Initializable {
 //
 //
 //
-//    }
-//
-//    public void criaRegularQuadrado(MouseEvent e){
-//        Vertice v = new Vertice();
-//        Vertice v2 = new Vertice();
-//        v.X = e.getX();
-//        v.Y = e.getY();
-//        v2.X=v.X+100;
-//        v2.Y=v.Y;
-//        poligonos.add( new Poligono(v,v2,4,Cor.getValue()));
-//        this.draw(poligonos.get(poligonos.size()-1));
-//    }
-//    public void criaRegularTriangulo(MouseEvent e){
-//        Vertice v = new Vertice();
-//        Vertice v2 = new Vertice();
-//        v.X = e.getX();
-//        v.Y = e.getY();
-//        v2.X=v.X+100;
-//        v2.Y=v.Y;
-//        poligonos.add( new Poligono(v,v2,3));
-//        this.draw(poligonos.get(poligonos.size()-1));
-//    }
-//    public void criaRegularPentagono(MouseEvent e){
-//        Vertice v = new Vertice();
-//        Vertice v2 = new Vertice();
-//        v.X = e.getX();
-//        v.Y = e.getY();
-//        v2.X=v.X+100;
-//        v2.Y=v.Y;
-//        poligonos.add( new Poligono(v,v2,5));
-//        this.draw(poligonos.get(poligonos.size()-1));
-//    }
-//    public void criaRegularHexagono(MouseEvent e){
-//        Vertice v = new Vertice();
-//        Vertice v2 = new Vertice();
-//        v.X = e.getX();
-//        v.Y = e.getY();
-//        v2.X=v.X+100;
-//        v2.Y=v.Y;
-//        poligonos.add( new Poligono(v,v2,6));
-//        this.draw(poligonos.get(poligonos.size()-1));
 //    }
 //    public void criaRegularNlados(MouseEvent e){
 //        Vertice v = new Vertice();
