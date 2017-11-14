@@ -206,16 +206,31 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaRegularXY(MouseEvent click){
+        Vertice3D v=new Vertice3D();
         if(click.getSource()==gc1){
+            v.X=click.getX();
+            v.Y=click.getY();
             this.poligonos.add(new Poligono3D());
         }
     }
     public void criaRegularZY(MouseEvent click){
-
+        Vertice3D v=new Vertice3D();
+        if(click.getSource()==gc2){
+            v.Z=click.getX();
+            v.Y=click.getY();
+            this.poligonos.add(new Poligono3D());
+        }
     }
     public void criaRegularXZ(MouseEvent click){
-
+        Vertice3D v=new Vertice3D();
+        if(click.getSource()==gc3){
+            v.X=click.getX();
+            v.Z=click.getY();
+            this.poligonos.add(new Poligono3D());
+        }
     }
+
+
 
 
     public void cor(ActionEvent e){
