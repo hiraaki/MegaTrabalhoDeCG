@@ -69,7 +69,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private  Button Translada;
     @FXML
-    private Button ScalaXY;
+    private Button Scala;
     @FXML
     private Button Rotacao;
     @FXML
@@ -79,7 +79,7 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<Poligono3D> poligonos;
     public int selecionado;
     public int cliques;
-    public ArrayList<Vertice> novoIrregular;
+    public ArrayList<Vertice3D> novoIrregular;
     public Vertice Pressed;
     public double Distancia;
     GraphicsContext gc1;
@@ -93,11 +93,11 @@ public class FXMLDocumentController implements Initializable {
         // TODO
 
 
-        this.poligonos=new ArrayList();
-        this.novoIrregular = new ArrayList();
+        this.poligonos=new ArrayList<Poligono3D>();
+        this.novoIrregular = new ArrayList<Vertice3D>();
 
         this.selecionado=-1;
-        this.Pressed=new Vertice();
+        this.Pressed=new Vertice3D();
         this.Distancia=0.0;
         this.Fator=0.0;
        /* drawingArea1.getParent().setOnKeyPressed((KeyEvent e) -> {
@@ -118,6 +118,9 @@ public class FXMLDocumentController implements Initializable {
         gc4 = drawingArea4.getGraphicsContext2D();
 
         gc1.setStroke(Color.BLACK);
+        gc2.setStroke(Color.BLACK);
+        gc3.setStroke(Color.BLACK);
+        gc4.setStroke(Color.BLACK);
 
     }
     public void setPressed(MouseEvent e){
@@ -158,7 +161,7 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    public void scalaXY(){
+    public void scala(){
 
         drawingArea1.setOnMousePressed(this::setPressed);
         //drawingArea1.setOnMouseDragged(this::scalaxy);
@@ -203,20 +206,28 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void criaRegularXY(MouseEvent click){
+        if(click.getSource()==gc1){
+            this.poligonos.add(new Poligono3D());
+        }
+    }
+    public void criaRegularZY(MouseEvent click){
+
+    }
+    public void criaRegularXZ(MouseEvent click){
 
     }
 
 
-//    public void cor(ActionEvent e){
-//        ColorPicker colorPicker = new ColorPicker();
-//        System.out.println(Cor.getValue());
-//        poligonos.get(selecionado).face.Preenchimento=Cor.getValue();
-//        //System.out.println(poligonos.get(selecionado).face.Preenchimento);
-//        gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//        drawall();
-//        selecionado=-1;
-//    }
-//
+    public void cor(ActionEvent e){
+        ColorPicker colorPicker = new ColorPicker();
+        System.out.println(Cor.getValue());
+        //poligonos.get(selecionado).face.Preenchimento=Cor.getValue();
+        //System.out.println(poligonos.get(selecionado).face.Preenchimento);
+        gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+        //drawall();
+        selecionado=-1;
+    }
+
 //    public void rotaciona(MouseEvent e){
 //        System.out.println(this.Fator);
 //        Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
@@ -335,63 +346,63 @@ public class FXMLDocumentController implements Initializable {
 //        unsetclick();
 //    }
 //
-//    public void Exclui(){
-//        if(selecionado!=-1) {
-//            poligonos.remove(selecionado);
-//            selecionado = -1;
-//            gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//            for (Poligono3D p : poligonos) {
-//                p.drawXY(gc1);
-//            }
-//        }
-//    }
+    public void Exclui(){
+        if(selecionado!=-1) {
+            poligonos.remove(selecionado);
+            selecionado = -1;
+            gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+            for (Poligono3D p : poligonos) {
+                p.drawXY(gc1);
+            }
+        }
+    }
+
 //
-//
-//    public void salvar(){
-//        FileChooser chooser = new FileChooser();
-//        FileChooser filter = new FileChooser();
-//        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
-//        chooser.getExtensionFilters().add(extFiler);
-//        chooser.setTitle("Salvar Cena");
-//        String savef = chooser.showSaveDialog(drawingArea1.getScene().getWindow()).toString();
-//        save(savef);
-//
-//    }
-//    public void save(String fileName) {
-//        FileOutputStream out = null;
-//        try {
-//            out = new FileOutputStream(fileName);
-//            ObjectOutputStream oos = new ObjectOutputStream(out);
-//            oos.writeObject(poligonos);
-//            oos.flush();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    public void open() {
-//        FileChooser chooser = new FileChooser();
-//        FileChooser filter = new FileChooser();
-//        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
-//        chooser.getExtensionFilters().add(extFiler);
-//        chooser.setTitle("Abrir Cena");
-//        String openf = chooser.showOpenDialog(drawingArea1.getScene().getWindow()).toString();
-//        load(openf);
-//    }
-//
-//    public void load(String fileName) {
-//        try {
-//            FileInputStream in = new FileInputStream(fileName);
-//            ObjectInputStream ois = new ObjectInputStream(in);
-//            poligonos = (ArrayList<Poligono>) (ois.readObject());
-//        } catch (Exception e) {
-//            System.out.println("Problem serializing: " + e);
-//        }
-//        System.out.println("este é o arquivo");
-//        gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//        this.drawall();
-//        //return null;
-//    }
-//
+    public void salvar(){
+        FileChooser chooser = new FileChooser();
+        FileChooser filter = new FileChooser();
+        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
+        chooser.getExtensionFilters().add(extFiler);
+        chooser.setTitle("Salvar Cena");
+        String savef = chooser.showSaveDialog(drawingArea1.getScene().getWindow()).toString();
+        save(savef);
+
+    }
+    public void save(String fileName) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(out);
+            oos.writeObject(poligonos);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void open() {
+        FileChooser chooser = new FileChooser();
+        FileChooser filter = new FileChooser();
+        FileChooser.ExtensionFilter extFiler = new FileChooser.ExtensionFilter("POLIGON Files (*.out)", "*.out");
+        chooser.getExtensionFilters().add(extFiler);
+        chooser.setTitle("Abrir Cena");
+        String openf = chooser.showOpenDialog(drawingArea1.getScene().getWindow()).toString();
+        load(openf);
+    }
+
+    public void load(String fileName) {
+        try {
+            FileInputStream in = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(in);
+            poligonos = (ArrayList<Poligono3D>) (ois.readObject());
+        } catch (Exception e) {
+            System.out.println("Problem serializing: " + e);
+        }
+        System.out.println("este é o arquivo");
+        gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+       // this.drawall();
+        //return null;
+    }
+
 //
 //    public void selecionar(MouseEvent e){
 //        double menor=9999999999999.0;
@@ -530,13 +541,13 @@ public class FXMLDocumentController implements Initializable {
 //    }
 //
 //
-//    public void novo(){
-//            this.gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//            cliques = 0;
-//            poligonos.clear();
-//            selecionado=-1;
-//            novoIrregular.clear();
-//    }
+    public void novo(){
+            this.gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+            cliques = 0;
+            poligonos.clear();
+            selecionado=-1;
+            novoIrregular.clear();
+    }
 //
 //
 //    public double DistanceFromLine(double cx, double cy, double ax, double ay ,double bx, double by){
