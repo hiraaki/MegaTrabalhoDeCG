@@ -6,6 +6,8 @@ import javafx.scene.paint.Color;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class Poligono3D {
     public Vertice3D Central;
     public ArrayList<Aresta3D> Arestas;
@@ -17,10 +19,37 @@ public class Poligono3D {
 
     /*
     * Cria poligono de acordo com o plano selecionado
+    * Se plano=1 cria em XY
+    * Se plano=2 cria em ZY
+    * se Plano=3 cria em XZ
     * */
     public Poligono3D(Vertice3D central,Vertice3D ini, Vertice3D fim,int lados,int plano){
-        if(){
-
+        double rad= Math.toDegrees(360/lados);
+        double R=abs(abs(fim.X)-abs(ini.X));
+        double xtemp;
+        double ytemp;
+        double ztemp;
+        if(plano==1){
+            for(int i=0;i<lados;i++) {
+                xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.X);
+                ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + rad) + ini.Y);
+                ztemp = 0.0;
+                this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
+            }
+        }else if(plano==2){
+            for(int i=0;i<lados;i++) {
+                xtemp = 0.0;
+                ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + rad) + ini.Y);
+                ztemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.Z);
+                this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
+            }
+        }else if(plano==3){
+            for(int i=0;i<lados;i++) {
+                xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.X);
+                ytemp = 0.0;
+                ztemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.Z);
+                this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
+            }
         }
     }
 
@@ -106,6 +135,9 @@ public class Poligono3D {
                 graphicsXY.strokeLine(this.Vertices.get(i).X, this.Vertices.get(i).Z, this.Vertices.get(0).X,this.Vertices.get(0).Z);
             }
         }
+    }
+    public void calcCentro(){
+
     }
 
 
