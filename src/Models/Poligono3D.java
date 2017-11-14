@@ -19,9 +19,7 @@ public class Poligono3D {
     * Cria poligono de acordo com o plano selecionado
     * */
     public Poligono3D(Vertice3D central,Vertice3D ini, Vertice3D fim,int lados,int plano){
-        if(){
 
-        }
     }
 
     public Poligono3D(ArrayList<Vertice3D> vertices){
