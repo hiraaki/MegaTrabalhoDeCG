@@ -141,7 +141,7 @@ public class FXMLDocumentController implements Initializable {
         drawingArea3.setOnMouseClicked(this::criaRegularZY);
         //virado para cima
         drawingArea2.setOnMouseClicked(this::criaRegularXZ);
-        System.out.println("desenha1");
+
 
     }
     public void criaIrregular(){
@@ -177,7 +177,7 @@ public class FXMLDocumentController implements Initializable {
     public void rotacao(){
 
         drawingArea1.setOnMousePressed(this::setPressed);
-        //drawingArea1.setOnMouseDragged(this::rotaciona);
+        drawingArea1.setOnMouseDragged(this::rotacaoZ);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void unsetclick(){
@@ -199,43 +199,51 @@ public class FXMLDocumentController implements Initializable {
         drawingArea3.setOnMouseReleased(null);
 
     }
-
-    public void criaRegularXY(MouseEvent click){
-        System.out.println("desenha2");
-        Vertice3D v=new Vertice3D();
-        if(click.getSource()==drawingArea1){
-            v.X=click.getX();
-            v.Y=click.getY();
-            this.poligonos.add(new Poligono3D(v,100,N.getValue(),1));
-            this.drawPoligonos();
+    public void drawPoligonos(){
+        for (Poligono3D pol:poligonos) {
+            pol.drawXY(gc1);
+            pol.drawZY(gc3);
+            pol.drawXZ(gc2);
         }
+    }
+    public void criaRegularXY(MouseEvent click){
+        Vertice3D v=new Vertice3D();
+        v.X=click.getX();
+        v.Y=click.getY();
+        this.poligonos.add(new Poligono3D(v,100,N.getValue(),1));
+        this.drawPoligonos();
+        unsetclick();
     }
     public void criaRegularZY(MouseEvent click){
         Vertice3D v=new Vertice3D();
-        if(click.getSource()==drawingArea2){
-            v.Z=click.getX();
-            v.Y=click.getY();
-            this.poligonos.add(new Poligono3D(v,100,N.getValue(),2));
-        }
+        v.Z=click.getX();
+        v.Y=click.getY();
+        this.poligonos.add(new Poligono3D(v,100,N.getValue(),2));
+        this.drawPoligonos();
+        unsetclick();
     }
     public void criaRegularXZ(MouseEvent click){
         Vertice3D v=new Vertice3D();
-        if(click.getSource()==drawingArea3){
-            v.X=click.getX();
-            v.Z=click.getY();
-            this.poligonos.add(new Poligono3D(v,100,N.getValue(),3));
-            drawPoligonos();
-        }
-    }
-    public void drawPoligonos(){
-        System.out.println("desenha4");
-        for (Poligono3D pol:poligonos) {
-            pol.drawXY(gc1);
-            pol.drawZY(gc2);
-            pol.drawXZ(gc3);
-        }
+        v.X=click.getX();
+        v.Z=click.getY();
+        this.poligonos.add(new Poligono3D(v,100,N.getValue(),3));
+        drawPoligonos();
+        unsetclick();
     }
 
+    public void rotacaoZ(MouseEvent click){
+        System.out.println(this.Fator);
+        Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
+        double fator = atan2((click.getX()-centro.X),(click.getY()-centro.Y));
+        poligonos.get(selecionado).rotacaoZ(this.Fator-fator);
+        System.out.println(fator +" "+(fator-this.Fator)+" "+toDegrees(fator));
+        this.Fator=fator;
+        gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+        drawPoligonos();
+    }
+    public void select(){
+
+    }
 
 
 

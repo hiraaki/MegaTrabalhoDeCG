@@ -29,7 +29,7 @@ public class Poligono3D {
         this.Arestas = new ArrayList<>();
         this.Central = new Vertice3D();
         double rad= Math.toDegrees(360/lados);
-        System.out.println("desenha3");
+        //System.out.println("desenha4");
         double R=raio;
         double xtemp;
         double ytemp;
@@ -38,20 +38,20 @@ public class Poligono3D {
             for(int i=0;i<lados;i++) {
                 xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.X);
                 ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + rad) + ini.Y);
-                ztemp = 0.0;
+                ztemp = 1;
                 this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
             }
         }else if(plano==2){
             for(int i=0;i<lados;i++) {
-                xtemp = 0.0;
+                xtemp = 1;
                 ytemp = (R * Math.sin((2 * Math.PI * (i)) / lados + rad) + ini.Y);
                 ztemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.Z);
                 this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
             }
         }else if(plano==3){
             for(int i=0;i<lados;i++) {
-                xtemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.X);
-                ytemp = 0.0;
+                xtemp = (R * Math.sin((2 * Math.PI * (i)) / lados + rad) + ini.X);
+                ytemp = 1;
                 ztemp = (R * Math.cos((2 * Math.PI * (i)) / lados + rad) + ini.Z);
                 this.Vertices.add(new Vertice3D(xtemp, ytemp,ztemp));
             }
