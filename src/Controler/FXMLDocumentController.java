@@ -315,7 +315,24 @@ public class FXMLDocumentController implements Initializable {
 
     public void Translada(MouseEvent click){
         if(click.getSource()==drawingArea1) {
-            Vertice3D v = new Vertice3D(click.getX(), click.getY(), 0.0);
+            Vertice3D v = new Vertice3D(click.getX(), click.getY(), 1);
+            if (selecionado != -1) {
+                if (click.getX() != poligonos.get(selecionado).Central.X)
+                    if (click.getY() != poligonos.get(selecionado).Central.Y)
+                        poligonos.get(selecionado).translada(v);
+            }
+        }
+        else if(click.getSource()==drawingArea3) {
+            Vertice3D v = new Vertice3D(1, click.getY(),click.getX());
+            if (selecionado != -1) {
+                if (click.getX() != poligonos.get(selecionado).Central.X)
+                    if (click.getY() != poligonos.get(selecionado).Central.Y)
+                        poligonos.get(selecionado).translada(v);
+                gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
+                this.drawPoligonos();
+            }
+        }else if(click.getSource()==drawingArea2) {
+            Vertice3D v = new Vertice3D(click.getX(), 1, click.getY());
             if (selecionado != -1) {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
                     if (click.getY() != poligonos.get(selecionado).Central.Y)
@@ -324,25 +341,8 @@ public class FXMLDocumentController implements Initializable {
                 this.drawPoligonos();
             }
         }
-//        else if(click.getSource()==drawingArea3) {
-//            Vertice3D v = new Vertice3D(1, click.getY(),click.getX());
-//            if (selecionado != -1) {
-//                if (click.getX() != poligonos.get(selecionado).Central.X)
-//                    if (click.getY() != poligonos.get(selecionado).Central.Y)
-//                        poligonos.get(selecionado).translada(v);
-//                gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//                this.drawPoligonos();
-//            }
-//        }else if(click.getSource()==drawingArea2) {
-//            Vertice3D v = new Vertice3D(click.getX(), 1, click.getY());
-//            if (selecionado != -1) {
-//                if (click.getX() != poligonos.get(selecionado).Central.X)
-//                    if (click.getY() != poligonos.get(selecionado).Central.Y)
-//                        poligonos.get(selecionado).translada(v);
-//                gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//                this.drawPoligonos();
-//            }
-//        }
+        this.clearALL();
+        this.drawPoligonos();
         unsetclick();
 
     }
