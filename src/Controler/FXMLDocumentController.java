@@ -74,10 +74,14 @@ public class FXMLDocumentController implements Initializable {
     private ColorPicker Cor;
     @FXML
     private Button Nlados;
+    @FXML
+    private Button Revolucao;
 
     public Aresta raio;
     private ArrayList<Poligono3D> poligonos;
+    private ArrayList<Poliedro> poliedros;
     public int selecionado;
+    public int poliedroSelecionado;
     public int cliques;
     public ArrayList<Vertice3D> novoIrregular;
     public Vertice Pressed;
@@ -92,11 +96,11 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-
         this.poligonos=new ArrayList<Poligono3D>();
         this.novoIrregular = new ArrayList<Vertice3D>();
-
+        this.poliedros=new ArrayList<Poliedro>();
         this.selecionado=-1;
+        this.poliedroSelecionado=-1;
         this.Pressed=new Vertice3D();
         this.Distancia=0.0;
         this.Fator=0.0;
@@ -132,8 +136,17 @@ public class FXMLDocumentController implements Initializable {
         this.Pressed.Y=0;
         this.Fator=0;
     }
-
-
+    public void unsetDragged(MouseEvent click){
+        drawingArea1.setOnMouseDragged(null);
+        drawingArea2.setOnMouseDragged(null);
+        drawingArea3.setOnMouseDragged(null);
+        unsetRelised();
+    }
+    public void unsetRelised(){
+        drawingArea1.setOnMouseReleased(null);
+        drawingArea2.setOnMouseReleased(null);
+        drawingArea3.setOnMouseReleased(null);
+    }
     public void criaNlados(){
         //virado para a frente
         drawingArea1.setOnMouseClicked(this::criaRegularXY);
@@ -149,19 +162,15 @@ public class FXMLDocumentController implements Initializable {
         drawingArea1.setOnMouseReleased(null);
     }
     public void seleciona(){
-        drawingArea1.setOnMouseDragged(null);
         drawingArea1.setOnMouseClicked(this::select);
         drawingArea2.setOnMouseClicked(this::select);
         drawingArea3.setOnMouseClicked(this::select);
-        drawingArea1.setOnMousePressed(null);
-        drawingArea1.setOnMouseReleased(null);
     }
     public void Arrasta(){
-
+        drawingArea1.setOnMouseReleased(this::unsetDragged);
         drawingArea1.setOnMouseDragged(this::Translada);
         drawingArea2.setOnMouseDragged(this::Translada);
         drawingArea3.setOnMouseDragged(this::Translada);
-
     }
 
     public void scala(){
@@ -222,12 +231,24 @@ public class FXMLDocumentController implements Initializable {
                 pol.drawXZ(gc2,Color.BLACK);
             }
         }
+        for(int i=0;i<this.poliedros.size();i++){
+             Poliedro pol=poliedros.get(i);
+            if(poliedroSelecionado==i) {
+                pol.draw(gc1, Color.RED, 1);
+                pol.draw(gc3, Color.RED, 2);
+                pol.draw(gc2, Color.RED, 3);
+            }else{
+                pol.draw(gc1, Color.BLACK, 1);
+                pol.draw(gc3, Color.BLACK, 2);
+                pol.draw(gc2, Color.BLACK, 3);
+            }
+        }
     }
     public void criaRegularXY(MouseEvent click){
         Vertice3D v=new Vertice3D();
         v.X=click.getX();
         v.Y=click.getY();
-        this.poligonos.add(new Poligono3D(v,100,N.getValue(),1));
+        this.poligonos.add(new Poligono3D(v,10,N.getValue(),1));
         this.drawPoligonos();
         unsetclick();
     }
@@ -235,7 +256,7 @@ public class FXMLDocumentController implements Initializable {
         Vertice3D v=new Vertice3D();
         v.Z=click.getX();
         v.Y=click.getY();
-        this.poligonos.add(new Poligono3D(v,100,N.getValue(),2));
+        this.poligonos.add(new Poligono3D(v,10,N.getValue(),2));
         this.drawPoligonos();
         unsetclick();
     }
@@ -243,48 +264,57 @@ public class FXMLDocumentController implements Initializable {
         Vertice3D v=new Vertice3D();
         v.X=click.getX();
         v.Z=click.getY();
-        this.poligonos.add(new Poligono3D(v,100,N.getValue(),3));
+        this.poligonos.add(new Poligono3D(v,10,N.getValue(),3));
         drawPoligonos();
         unsetclick();
     }
 
     public void rotacaoZ(MouseEvent click){
         System.out.println(this.Fator);
-
         Vertice centro = new Vertice(this.poligonos.get(selecionado).Central.X,this.poligonos.get(selecionado).Central.Y);
-
         double fator = atan2((click.getX()-centro.X),(click.getY()-centro.Y));
-
-
         poligonos.get(selecionado).rotacaoZ(this.Fator-fator);
-
         this.Fator=fator;
         drawPoligonos();
     }
     public void select(MouseEvent click){
-        double menor=9999999999999.0;
+        double menor=Double.MAX_VALUE;
         int novoselect=-1;
+        int novoselPolie=-1;
         if(click.getSource()==drawingArea1) {
             for (int i = 0; i < poligonos.size(); i++) {
                 if (poligonos.get(i).isSelectedXY(new Vertice3D(click.getX(), click.getY(), 0), 5)) {
                     novoselect = i;
-                    System.out.println(novoselect);
                 }
-
             }
+            for (int i = 0; i < poliedros.size(); i++) {
+                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), click.getY(), 0))) {
+                    novoselPolie = i;
+                }
+            }
+
+
         }else if(click.getSource()==drawingArea3){
             for (int i = 0; i < poligonos.size(); i++) {
                 if (poligonos.get(i).isSelectedZY(new Vertice3D(0.0, click.getY(), click.getX()), 5)) {
                     novoselect = i;
-                    System.out.println(novoselect);
                 }
             }
-        }
-        else if(click.getSource()==drawingArea2){
+            for (int i = 0; i < poliedros.size(); i++) {
+                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), click.getY(), 0))) {
+                    novoselPolie = i;
+                }
+            }
+
+        }else if(click.getSource()==drawingArea2){
             for (int i = 0; i < poligonos.size(); i++) {
                 if (poligonos.get(i).isSelectedXZ(new Vertice3D(click.getX(), 0.0, click.getY()), 5)) {
                     novoselect = i;
-                    System.out.println(novoselect);
+                }
+            }
+            for (int i = 0; i < poliedros.size(); i++) {
+                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), click.getY(), 0))) {
+                    novoselPolie = i;
                 }
             }
         }
@@ -295,6 +325,14 @@ public class FXMLDocumentController implements Initializable {
         }
         if(selecionado==-1){
             System.out.println("nenhum pol selecionado");
+        }
+        if(novoselPolie==-1)
+            System.out.println("nenhum poliedro selecionado");
+        else if(novoselPolie==poliedroSelecionado) {
+            poliedroSelecionado=-1;
+        }else{
+            selecionado=-1;
+            poliedroSelecionado=novoselPolie;
         }
         this.clearALL();
         this.drawPoligonos();
@@ -320,9 +358,11 @@ public class FXMLDocumentController implements Initializable {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
                     if (click.getY() != poligonos.get(selecionado).Central.Y)
                         poligonos.get(selecionado).translada(v);
+
+            }else if(poliedroSelecionado!=-1){
+                poliedros.get(poliedroSelecionado).translada(v);
             }
-        }
-        else if(click.getSource()==drawingArea3) {
+        }else if(click.getSource()==drawingArea3) {
             Vertice3D v = new Vertice3D(1, click.getY(),click.getX());
             if (selecionado != -1) {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
@@ -330,6 +370,9 @@ public class FXMLDocumentController implements Initializable {
                         poligonos.get(selecionado).translada(v);
                 gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                 this.drawPoligonos();
+            }
+            else if(poliedroSelecionado!=-1){
+                poliedros.get(poliedroSelecionado).translada(v);
             }
         }else if(click.getSource()==drawingArea2) {
             Vertice3D v = new Vertice3D(click.getX(), 1, click.getY());
@@ -340,11 +383,21 @@ public class FXMLDocumentController implements Initializable {
                 gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                 this.drawPoligonos();
             }
+            else if(poliedroSelecionado!=-1){
+                poliedros.get(poliedroSelecionado).translada(v);
+            }
         }
         this.clearALL();
         this.drawPoligonos();
         unsetclick();
 
+    }
+    public void revolucao(){
+        Poligono3D pol = poligonos.get(selecionado);
+        Poliedro P;
+        P = new Poliedro(pol,100,1);
+        poliedros.add(P);
+        drawPoligonos();
     }
 
 //    public void cisalhamentox(MouseEvent e){
@@ -402,20 +455,7 @@ public class FXMLDocumentController implements Initializable {
 //        drawall();
 //        //poligonos.get(selecionado).printVertices();
 //    }
-//
-//
-//    public void Translada(MouseEvent mouseEvent) {
-//        Vertice v = new Vertice(mouseEvent.getX(),mouseEvent.getY());
-//        if(selecionado!=-1){
-//            if(mouseEvent.getX()!=poligonos.get(selecionado).Central.X)
-//                if(mouseEvent.getY()!=poligonos.get(selecionado).Central.Y)
-//                    poligonos.get(selecionado).translada(v);
-//                    gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-//                    drawall();
-//        }
-//        unsetclick();
-//    }
-//
+
     public void Exclui(){
         if(selecionado!=-1) {
             poligonos.remove(selecionado);

@@ -1,22 +1,28 @@
 package Models;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Poliedro {
+    public Vertice3D Central;
     public ArrayList<Poligono3D> Faces;
     public ArrayList<Vertice3D> Vertices;
     public Poliedro(){}
     /*
     * Gera um poliedro conectando faces uma a outra, criando novos poligonos laterias.
     * */
-    public Poliedro(ArrayList<Poligono3D> faces){
-        this.Faces=new ArrayList<Poligono3D>();
-        this.Faces=faces;
-        this.Vertices=new ArrayList<Vertice3D>();
-        for (Poligono3D p:Faces) {
+    public void linkfaces(ArrayList<Poligono3D> faces){
+//        this.Faces=new ArrayList<Poligono3D>();
+//        this.Faces=faces;
+//        this.Vertices=new ArrayList<Vertice3D>();
+        for (Poligono3D p:faces) {
             this.addFace(p);
         }
         this.addFace(faces.get(0));
+        this.calcCentroid();
 
     }
     /*
@@ -25,7 +31,10 @@ public class Poliedro {
     * Para lado=2 gera por rotação em xz;
     * Para lado=3 gera por rotação em zy;
     * */
-    public void Poliedro(Poligono3D geratriz,int NumerodeFaces,int lado){
+    public Poliedro(Poligono3D geratriz,int NumerodeFaces,int lado){
+        this.Central = new Vertice3D();
+        this.Vertices = new ArrayList<>();
+        this.Faces = new ArrayList<>();
         if(lado==1){
             this.genByRotationXY(geratriz,NumerodeFaces);
         }else if(lado==2){
@@ -33,6 +42,7 @@ public class Poliedro {
         }else if(lado==3){
             this.genByRotationZY(geratriz,NumerodeFaces);
         }
+        this.calcCentroid();
 
     }
     /*
@@ -48,40 +58,109 @@ public class Poliedro {
             for (int i = 0; i < poligono1.Vertices.size(); i++) {
                 this.Vertices.add(poligono1.Vertices.get(i));
                 this.Vertices.add(poligono2.Vertices.get(i));
-                if ((i % 2) != 0) {
+                if (i!=poligono1.Vertices.size()-1) {
                     Poligono3D aux = new Poligono3D();
-                    aux.Vertices.add(poligono1.Vertices.get(i));
                     aux.Vertices.add(poligono2.Vertices.get(i));
-                    aux.Vertices.add(poligono2.Vertices.get(i - 1));
-                    aux.Vertices.add(poligono1.Vertices.get(i - 1));
+                    aux.Vertices.add(poligono1.Vertices.get(i));
+                    aux.Vertices.add(poligono1.Vertices.get(i + 1));
+                    aux.Vertices.add(poligono2.Vertices.get(i + 1));
                     aux.setArestas();
                     this.Faces.add(aux);
+
                 }
 
             }
+            this.Faces.add(poligono2);
+
         }
 
     }
     public void genByRotationXY(Poligono3D geratriz,int faces){
         ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
+        double grau = 360/faces;
+        for(int i=0;i<=faces;i++){
+            polList.add(new Poligono3D(geratriz.Vertices));
+            geratriz.rotacaoY(grau);
+        }
+        linkfaces(polList);
+    }
+    public void genByRotationZY(Poligono3D geratriz,int faces){
+        ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
         for(int i=0;i<faces;i++){
             polList.add(new Poligono3D(geratriz.Vertices));
             geratriz.rotacaoZ(360/faces);
         }
+
     }
-    public void genByRotationZY(Poligono3D geratriz,int faces){
+    public void genByRotationXZ(Poligono3D geratriz,int faces){
         ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
         for(int i=0;i<faces;i++){
             polList.add(new Poligono3D(geratriz.Vertices));
             geratriz.rotacaoX(360/faces);
         }
     }
-    public void genByRotationXZ(Poligono3D geratriz,int faces){
-        ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
-        for(int i=0;i<faces;i++){
-            polList.add(new Poligono3D(geratriz.Vertices));
-            geratriz.rotacaoY(360/faces);
+    /*
+    * Desenha de acordo com o plano selecionado
+    * */
+    public void draw(GraphicsContext gc,Color type, int plano){
+        for (Poligono3D pol: this.Faces) {
+            if(plano==1){
+                pol.drawXY(gc,type);
+            }else if(plano==2){
+                pol.drawZY(gc,type);
+            }else if (plano==3){
+                pol.drawXZ(gc,type);
+            }
         }
+    }
+    public void calcCentroid(){
+        Vertice3D maior=new Vertice3D(-99999,-9999,-9999);
+        Vertice3D menor=new Vertice3D(999999,99999,99999);
+        for (Vertice3D V: this.Vertices) {
+            if(V.X>=maior.X){
+                maior.X=V.X;
+            }
+            if(V.Y>=maior.Y){
+                maior.Y=V.Y;
+            }
+            if(V.Z>maior.Z){
+                maior.Z=V.Z;
+            }
+            if(V.X<menor.X){
+                menor.X=V.X;
+            }
+            if(V.Y<menor.Y){
+                menor.Y=V.Y;
+            }
+            if(V.Z<menor.Z){
+                menor.Z=V.Z;
+            }
+        }
+        this.Central.X=menor.X+((maior.X-menor.X)/2);
+        this.Central.Y=menor.Y+((maior.Y-menor.Y)/2);
+        this.Central.Z=menor.Z+((maior.Z-menor.Z)/2);
+    }
+    public void translada(Vertice3D novoCentro){
+        Vertice3D diferenca = new Vertice3D();
+        diferenca.X=novoCentro.X-this.Central.X;
+        diferenca.Y=novoCentro.Y-this.Central.Y;
+        diferenca.Z=novoCentro.Z-this.Central.Z;
+
+        for (Vertice3D v: this.Vertices) {
+            v.X=diferenca.X+v.X;
+            v.Y=diferenca.Y+v.Y;
+            v.Z=diferenca.Z+v.Z;
+        }
+        calcCentroid();
+    }
+    public boolean isSelected(Vertice3D V){
+        boolean selected=false;
+        for (Poligono3D pol: this.Faces) {
+            if(pol.isSelectedXY(V,5)||pol.isSelectedXZ(V,5)||pol.isSelectedZY(V,5))
+                selected=true;
+                break;
+        }
+        return selected;
     }
 
 

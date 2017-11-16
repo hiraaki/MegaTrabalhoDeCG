@@ -4,7 +4,6 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Menu?>
@@ -96,7 +95,7 @@
                       </items>
                   </ChoiceBox>
                </graphic></Button>
-            <Button fx:id="Seleciona" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="60.0" prefWidth="69.0" >
+            <Button fx:id="Seleciona" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleciona" prefHeight="60.0" prefWidth="69.0">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -117,10 +116,7 @@
             <Button fx:id="CisalhamentoX" layoutX="11.0" layoutY="289.0" mnemonicParsing="false" onAction="#cisalhamento" prefHeight="25.0" prefWidth="171.0" text="Cisalhamento" />
             <Button fx:id="Rotacao" layoutX="12.0" layoutY="314.0" mnemonicParsing="false" onAction="#rotacao" prefHeight="25.0" prefWidth="170.0" text="Rotaçao" />
             <ColorPicker fx:id="Cor" layoutX="14.0" layoutY="494.0" onAction="#cor" />
-            <CheckBox layoutX="20.0" layoutY="162.0" mnemonicParsing="false" text="X" />
-            <CheckBox layoutX="83.0" layoutY="162.0" mnemonicParsing="false" text="Y" />
-            <CheckBox layoutX="154.0" layoutY="162.0" mnemonicParsing="false" text="Z" />
-            <Button layoutX="13.0" layoutY="339.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" text="Revolução" />
+            <Button fx:id="Revolucao" layoutX="13.0" layoutY="339.0" mnemonicParsing="false" onAction="#revolucao" prefHeight="25.0" prefWidth="169.0" text="Revolução" />
             </children>
             <effect>
                 <Bloom threshold="1.0" />

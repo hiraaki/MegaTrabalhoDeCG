@@ -220,4 +220,5 @@ public class Poligono implements Serializable{
         this.translada(antigoCentro);
     }
 
+
 }

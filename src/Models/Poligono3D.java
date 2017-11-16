@@ -275,7 +275,6 @@ public class Poligono3D {
         diferenca.X=novoCentro.X-this.Central.X;
         diferenca.Y=novoCentro.Y-this.Central.Y;
         diferenca.Z=novoCentro.Z-this.Central.Z;
-        System.out.println(diferenca.Z);
         for (Vertice3D v: this.Vertices) {
             v.X=diferenca.X+v.X;
             v.Y=diferenca.Y+v.Y;
