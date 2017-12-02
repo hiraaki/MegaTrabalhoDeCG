@@ -28,7 +28,7 @@ public class Poligono3D {
         this.Vertices = new ArrayList<>();
         this.Arestas = new ArrayList<>();
         this.Central = new Vertice3D();
-        double rad= Math.toDegrees(360/lados);
+        double rad= Math.toRadians(360.0/lados);
         //System.out.println("desenha4");
         double R=raio;
         double xtemp;
