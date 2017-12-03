@@ -84,7 +84,8 @@ public class FXMLDocumentController implements Initializable {
     public int poliedroSelecionado;
     public int cliques;
     public ArrayList<Vertice3D> novoIrregular;
-    public Vertice Pressed;
+    public Vertice3D Pressed;
+    public Vertice3D aux;
     public double Distancia;
     GraphicsContext gc1;
     GraphicsContext gc2;
@@ -94,7 +95,6 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
         this.poligonos=new ArrayList<Poligono3D>();
         this.novoIrregular = new ArrayList<Vertice3D>();
@@ -102,6 +102,7 @@ public class FXMLDocumentController implements Initializable {
         this.selecionado=-1;
         this.poliedroSelecionado=-1;
         this.Pressed=new Vertice3D();
+        this.aux=new Vertice3D();
         this.Distancia=0.0;
         this.Fator=0.0;
        /* drawingArea1.getParent().setOnKeyPressed((KeyEvent e) -> {
@@ -127,10 +128,19 @@ public class FXMLDocumentController implements Initializable {
         gc4.setStroke(Color.BLACK);
 
     }
-    public void setPressed(MouseEvent e){
+    public void setPressedXY(MouseEvent e){
         this.Pressed.X=e.getX();
         this.Pressed.Y=e.getY();
     }
+    public void setPressedZY(MouseEvent e){
+        this.Pressed.Z=e.getX();
+        this.Pressed.Y=e.getY();
+    }
+    public void setPressedXZ(MouseEvent e){
+        this.Pressed.X=e.getX();
+        this.Pressed.Z=e.getY();
+    }
+
     public void setUnpressed(MouseEvent e){
         this.Pressed.X=0;
         this.Pressed.Y=0;
@@ -167,6 +177,9 @@ public class FXMLDocumentController implements Initializable {
         drawingArea3.setOnMouseClicked(this::select);
     }
     public void Arrasta(){
+        drawingArea1.setOnMousePressed(this::setPressedXY);
+        drawingArea3.setOnMousePressed(this::setPressedZY);
+        drawingArea2.setOnMousePressed(this::setPressedXZ);
         drawingArea1.setOnMouseReleased(this::unsetDragged);
         drawingArea1.setOnMouseDragged(this::Translada);
         drawingArea2.setOnMouseDragged(this::Translada);
@@ -175,19 +188,19 @@ public class FXMLDocumentController implements Initializable {
 
     public void scala(){
 
-        drawingArea1.setOnMousePressed(this::setPressed);
+        //drawingArea1.setOnMousePressed(this::setPressed);
         //drawingArea1.setOnMouseDragged(this::scalaxy);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void cisalhamento(){
 
-        drawingArea1.setOnMousePressed(this::setPressed);
+        //drawingArea1.setOnMousePressed(this::setPressed);
         //drawingArea1.setOnMouseDragged(this::cisalhamentox);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
     public void rotacao(){
 
-        drawingArea1.setOnMousePressed(this::setPressed);
+        //drawingArea1.setOnMousePressed(this::setPressed);
         drawingArea1.setOnMouseDragged(this::rotacaoZ);
         drawingArea1.setOnMouseReleased(this::setUnpressed);
     }
@@ -357,34 +370,53 @@ public class FXMLDocumentController implements Initializable {
             if (selecionado != -1) {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
                     if (click.getY() != poligonos.get(selecionado).Central.Y)
-                        poligonos.get(selecionado).translada(v);
+                        poligonos.get(selecionado).transladaXY(v);
 
             }else if(poliedroSelecionado!=-1){
-                poliedros.get(poliedroSelecionado).translada(v);
+                if((v.X!=this.Pressed.X)&&(v.Y!=this.Pressed.Y)) {
+                    v.X=v.X-this.Pressed.X;
+                    v.Y=v.Y-this.Pressed.Y;
+                    poliedros.get(poliedroSelecionado).transladaXY(v);
+                    this.Pressed.X = v.X+this.Pressed.X;
+                    this.Pressed.Y = v.Y+this.Pressed.Y;
+
+                }
             }
         }else if(click.getSource()==drawingArea3) {
             Vertice3D v = new Vertice3D(1, click.getY(),click.getX());
             if (selecionado != -1) {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
                     if (click.getY() != poligonos.get(selecionado).Central.Y)
-                        poligonos.get(selecionado).translada(v);
+                        poligonos.get(selecionado).transladaZY(v);
                 gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                 this.drawPoligonos();
             }
             else if(poliedroSelecionado!=-1){
-                poliedros.get(poliedroSelecionado).translada(v);
+                if((v.Z!=this.Pressed.X)&&(v.Y!=this.Pressed.Y)) {
+                    v.Z=v.Z-this.Pressed.Z;
+                    v.Y=v.Y-this.Pressed.Y;
+                    poliedros.get(poliedroSelecionado).transladaZY(v);
+                    this.Pressed.Z = v.Z+this.Pressed.Z;
+                    this.Pressed.Y = v.Y+this.Pressed.Y;
+                }
             }
         }else if(click.getSource()==drawingArea2) {
             Vertice3D v = new Vertice3D(click.getX(), 1, click.getY());
             if (selecionado != -1) {
                 if (click.getX() != poligonos.get(selecionado).Central.X)
                     if (click.getY() != poligonos.get(selecionado).Central.Y)
-                        poligonos.get(selecionado).translada(v);
+                        poligonos.get(selecionado).transladaXZ(v);
                 gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
-                this.drawPoligonos();
+                poliedros.get(poliedroSelecionado).transladaXZ(v);
+
             }
             else if(poliedroSelecionado!=-1){
-                poliedros.get(poliedroSelecionado).translada(v);
+                v.X=v.X-this.Pressed.X;
+                v.Z=v.Z-this.Pressed.Z;
+                poliedros.get(poliedroSelecionado).transladaXZ(v);
+                this.Pressed.X = v.X+this.Pressed.X;
+                this.Pressed.Z = v.Z+this.Pressed.Z;
+
             }
         }
         this.clearALL();
@@ -397,6 +429,7 @@ public class FXMLDocumentController implements Initializable {
         Poliedro P;
         P = new Poliedro(pol,100,1);
         poliedros.add(P);
+        this.poligonos.remove(pol);
         drawPoligonos();
     }
 

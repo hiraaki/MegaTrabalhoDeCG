@@ -77,7 +77,7 @@ public class Poliedro {
     }
     public void genByRotationXY(Poligono3D geratriz,int faces){
         ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
-        double grau = 360/faces;
+        double grau = 360.0/(double)faces;
         for(int i=0;i<=faces;i++){
             polList.add(new Poligono3D(geratriz.Vertices));
             geratriz.rotacaoY(grau);
@@ -88,7 +88,7 @@ public class Poliedro {
         ArrayList <Poligono3D> polList= new ArrayList<Poligono3D>();
         for(int i=0;i<faces;i++){
             polList.add(new Poligono3D(geratriz.Vertices));
-            geratriz.rotacaoZ(360/faces);
+            geratriz.rotacaoZ(360.0/(double)faces);
         }
 
     }
@@ -140,15 +140,23 @@ public class Poliedro {
         this.Central.Y=menor.Y+((maior.Y-menor.Y)/2);
         this.Central.Z=menor.Z+((maior.Z-menor.Z)/2);
     }
-    public void translada(Vertice3D novoCentro){
-        Vertice3D diferenca = new Vertice3D();
-        diferenca.X=novoCentro.X-this.Central.X;
-        diferenca.Y=novoCentro.Y-this.Central.Y;
-        diferenca.Z=novoCentro.Z-this.Central.Z;
-
+    public void transladaXY(Vertice3D diferenca){
         for (Vertice3D v: this.Vertices) {
             v.X=diferenca.X+v.X;
             v.Y=diferenca.Y+v.Y;
+        }
+        calcCentroid();
+    }
+    public void transladaZY(Vertice3D diferenca){
+        for (Vertice3D v: this.Vertices) {
+            v.Y=diferenca.Y+v.Y;
+            v.Z=diferenca.Z+v.Z;
+        }
+        calcCentroid();
+    }
+    public void transladaXZ(Vertice3D diferenca){
+        for (Vertice3D v: this.Vertices) {
+            v.X=diferenca.X+v.X;
             v.Z=diferenca.Z+v.Z;
         }
         calcCentroid();

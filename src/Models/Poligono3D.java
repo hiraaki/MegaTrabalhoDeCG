@@ -270,14 +270,32 @@ public class Poligono3D {
         this.Central.Y=menor.Y+((maior.Y-menor.Y)/2);
         this.Central.Z=menor.Z+((maior.Z-menor.Z)/2);
     }
-    public void translada(Vertice3D novoCentro){
+    public void transladaXY(Vertice3D novoCentro){
         Vertice3D diferenca = new Vertice3D();
         diferenca.X=novoCentro.X-this.Central.X;
         diferenca.Y=novoCentro.Y-this.Central.Y;
-        diferenca.Z=novoCentro.Z-this.Central.Z;
         for (Vertice3D v: this.Vertices) {
             v.X=diferenca.X+v.X;
             v.Y=diferenca.Y+v.Y;
+        }
+        calcCentroid();
+    }
+    public void transladaZY(Vertice3D novoCentro){
+        Vertice3D diferenca = new Vertice3D();
+        diferenca.Y=novoCentro.Y-this.Central.Y;
+        diferenca.Z=novoCentro.Z-this.Central.Z;
+        for (Vertice3D v: this.Vertices) {
+            v.Y=diferenca.Y+v.Y;
+            v.Z=diferenca.Z+v.Z;
+        }
+        calcCentroid();
+    }
+    public void transladaXZ(Vertice3D novoCentro){
+        Vertice3D diferenca = new Vertice3D();
+        diferenca.X=novoCentro.X-this.Central.X;
+        diferenca.Z=novoCentro.Z-this.Central.Z;
+        for (Vertice3D v: this.Vertices) {
+            v.X=diferenca.X+v.X;
             v.Z=diferenca.Z+v.Z;
         }
         calcCentroid();
