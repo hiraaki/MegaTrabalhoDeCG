@@ -153,9 +153,13 @@ public class FXMLDocumentController implements Initializable {
         unsetRelised();
     }
     public void unsetRelised(){
+        this.poliedroSelecionado=-1;
+        this.selecionado=-1;
         drawingArea1.setOnMouseReleased(null);
         drawingArea2.setOnMouseReleased(null);
         drawingArea3.setOnMouseReleased(null);
+        clearALL();
+        this.drawPoligonos();
     }
     public void criaNlados(){
         //virado para a frente
@@ -181,6 +185,8 @@ public class FXMLDocumentController implements Initializable {
         drawingArea3.setOnMousePressed(this::setPressedZY);
         drawingArea2.setOnMousePressed(this::setPressedXZ);
         drawingArea1.setOnMouseReleased(this::unsetDragged);
+        drawingArea2.setOnMouseReleased(this::unsetDragged);
+        drawingArea3.setOnMouseReleased(this::unsetDragged);
         drawingArea1.setOnMouseDragged(this::Translada);
         drawingArea2.setOnMouseDragged(this::Translada);
         drawingArea3.setOnMouseDragged(this::Translada);
@@ -309,12 +315,12 @@ public class FXMLDocumentController implements Initializable {
 
         }else if(click.getSource()==drawingArea3){
             for (int i = 0; i < poligonos.size(); i++) {
-                if (poligonos.get(i).isSelectedZY(new Vertice3D(0.0, click.getY(), click.getX()), 5)) {
+                if (poligonos.get(i).isSelectedZY(new Vertice3D(0.0,click.getX(), click.getX()), 5)) {
                     novoselect = i;
                 }
             }
             for (int i = 0; i < poliedros.size(); i++) {
-                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), click.getY(), 0))) {
+                if (poliedros.get(i).isSelected(new Vertice3D(0,click.getY(), click.getX()))) {
                     novoselPolie = i;
                 }
             }
@@ -326,7 +332,7 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             for (int i = 0; i < poliedros.size(); i++) {
-                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), click.getY(), 0))) {
+                if (poliedros.get(i).isSelected(new Vertice3D(click.getX(), 0.0, click.getY()))) {
                     novoselPolie = i;
                 }
             }
@@ -373,7 +379,7 @@ public class FXMLDocumentController implements Initializable {
                         poligonos.get(selecionado).transladaXY(v);
 
             }else if(poliedroSelecionado!=-1){
-                if((v.X!=this.Pressed.X)&&(v.Y!=this.Pressed.Y)) {
+                if((v.X!=this.Pressed.X)||(v.Y!=this.Pressed.Y)) {
                     v.X=v.X-this.Pressed.X;
                     v.Y=v.Y-this.Pressed.Y;
                     poliedros.get(poliedroSelecionado).transladaXY(v);
@@ -392,12 +398,13 @@ public class FXMLDocumentController implements Initializable {
                 this.drawPoligonos();
             }
             else if(poliedroSelecionado!=-1){
-                if((v.Z!=this.Pressed.X)&&(v.Y!=this.Pressed.Y)) {
+                if((v.X!=this.Pressed.X)||(v.Y!=this.Pressed.Y)) {
                     v.Z=v.Z-this.Pressed.Z;
                     v.Y=v.Y-this.Pressed.Y;
                     poliedros.get(poliedroSelecionado).transladaZY(v);
                     this.Pressed.Z = v.Z+this.Pressed.Z;
                     this.Pressed.Y = v.Y+this.Pressed.Y;
+
                 }
             }
         }else if(click.getSource()==drawingArea2) {
@@ -409,25 +416,28 @@ public class FXMLDocumentController implements Initializable {
                 gc1.clearRect(0, 0, drawingArea1.getWidth(), drawingArea1.getHeight());
                 poliedros.get(poliedroSelecionado).transladaXZ(v);
 
-            }
-            else if(poliedroSelecionado!=-1){
-                v.X=v.X-this.Pressed.X;
-                v.Z=v.Z-this.Pressed.Z;
-                poliedros.get(poliedroSelecionado).transladaXZ(v);
-                this.Pressed.X = v.X+this.Pressed.X;
-                this.Pressed.Z = v.Z+this.Pressed.Z;
+            }else if(poliedroSelecionado!=-1){
+                if((v.X!=this.Pressed.X)||(v.Y!=this.Pressed.Y)) {
+                    v.X = v.X - this.Pressed.X;
+                    v.Z = v.Z - this.Pressed.Z;
+                    poliedros.get(poliedroSelecionado).transladaXZ(v);
+                    this.Pressed.X = v.X + this.Pressed.X;
+                    this.Pressed.Z = v.Z + this.Pressed.Z;
+                }
 
             }
         }
+
         this.clearALL();
         this.drawPoligonos();
+
         unsetclick();
 
     }
     public void revolucao(){
         Poligono3D pol = poligonos.get(selecionado);
         Poliedro P;
-        P = new Poliedro(pol,100,1);
+        P = new Poliedro(pol,300,1);
         poliedros.add(P);
         this.poligonos.remove(pol);
         drawPoligonos();
@@ -556,49 +566,7 @@ public class FXMLDocumentController implements Initializable {
     }
 //
 //
-//    public double DistanceFromLine(double cx, double cy, double ax, double ay ,double bx, double by){
-//        double distanceSegment,distanceLine;
-//        double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
-//        double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
-//        double r = r_numerator / r_denomenator;
-//
-//        double px = ax + r*(bx-ax);
-//        double py = ay + r*(by-ay);
-//
-//        double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) ) / r_denomenator;
-//
-//        distanceLine = abs(s)*sqrt(r_denomenator);
-//
-//        double xx = px;
-//        double yy = py;
-//
-//        if ( (r >= 0) && (r <= 1) )
-//        {
-//            distanceSegment = distanceLine;
-//        }
-//        else
-//        {
-//
-//            double dist1 = (cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
-//            double dist2 = (cx-bx)*(cx-bx) + (cy-by)*(cy-by);
-//            if (dist1 < dist2)
-//            {
-//                xx = ax;
-//                yy = ay;
-//                distanceSegment = sqrt(dist1);
-//            }
-//            else
-//            {
-//                xx = bx;
-//                yy = by;
-//                distanceSegment = sqrt(dist2);
-//            }
-//
-//
-//        }
-//
-//        return distanceSegment;
-//    }
+
 //
 //    public void drawall(){
 //        for (Poligono p: poligonos) {

@@ -66,10 +66,17 @@ public class Poliedro {
                     aux.Vertices.add(poligono2.Vertices.get(i + 1));
                     aux.setArestas();
                     this.Faces.add(aux);
-
                 }
-
             }
+            Poligono3D aux = new Poligono3D();
+            aux.Vertices.add(poligono2.Vertices.get(poligono1.Vertices.size()-1));
+            aux.Vertices.add(poligono1.Vertices.get(poligono1.Vertices.size()-1));
+            aux.Vertices.add(poligono1.Vertices.get(0));
+            aux.Vertices.add(poligono2.Vertices.get(0));
+            aux.setArestas();
+            this.Faces.add(aux);
+
+            this.Faces.remove(poligono1);
             this.Faces.add(poligono2);
 
         }
@@ -164,10 +171,21 @@ public class Poliedro {
     public boolean isSelected(Vertice3D V){
         boolean selected=false;
         for (Poligono3D pol: this.Faces) {
-            if(pol.isSelectedXY(V,5)||pol.isSelectedXZ(V,5)||pol.isSelectedZY(V,5))
+            if(pol.isSelectedXY(V,5)){
                 selected=true;
                 break;
+            }
+            if(pol.isSelectedZY(V,5)){
+                selected=true;
+                break;
+            }
+            if(pol.isSelectedXZ(V,5)){
+                selected=true;
+                break;
+            }
+
         }
+
         return selected;
     }
 
