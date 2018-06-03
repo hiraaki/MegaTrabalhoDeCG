@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Models;
-import com.sun.javafx.geom.Vec2d;
+//import com.sun.javafx.geom.Vec2d;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
